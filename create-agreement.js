@@ -15,7 +15,7 @@ const INPUT = 'test.docx';
 const OUTPUT = './testesave.pdf';
 const JSON_INPUT = {
     "name": "Dylan",
-    "surname": "Wallss"
+    "surname": "Walls"
 }
 
 /**
