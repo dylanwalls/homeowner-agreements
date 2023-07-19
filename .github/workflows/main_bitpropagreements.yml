@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'bitpropagreements'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_62995F3F977A45AE9614AF715EBEF980 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_936CFB17EFE6400EBE17270CCE99C88E }}
           package: .
