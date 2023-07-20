@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Form</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Generate a partnership agreement</h2>
+    <form action="/submit" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="numNames" class="form-label">How many names need to be included in the agreement?</label>
+        <input type="number" id="numNames" name="numNames" class="form-control" required onchange="updateFormFields()">
+      </div>
+      <div id="nameFieldsContainer">
+        <!-- Name fields will be dynamically added here -->
+      </div>
+      <div class="mb-3">
+        <label for="erf" class="form-label">ERF Number:</label>
+        <input type="text" id="erf" name="erf" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="address" class="form-label">Address:</label>
+        <input type="text" id="address" name="address" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="titleNumber" class="form-label">Title Deed Number:</label>
+        <input type="text" id="titleNumber" name="titleNumber" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="noUnits" class="form-label">Number of Housing Units:</label>
+        <input type="number" id="noUnits" name="noUnits" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="noYears" class="form-label">Number of Years (in words):</label>
+        <input type="text" id="noYears" name="noYears" class="form-control" placeholder="e.g. 'ten years'" required>
+      </div>
+      <div class="mb-3">
+        <label for="noMonths" class="form-label">Number of Months:</label>
+        <input type="number" id="noMonths" name="noMonths" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="bank" class="form-label">Bank:</label>
+        <input type="text" id="bank" name="bank" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="accountHolder" class="form-label">Account Holder:</label>
+        <input type="text" id="accountHolder" name="accountHolder" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="accountNumber" class="form-label">Account Number:</label>
+        <input type="text" id="accountNumber" name="accountNumber" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="accountType" class="form-label">Account Type:</label>
+        <input type="text" id="accountType" name="accountType" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="contactNumber" class="form-label">Contact Number:</label>
+        <input type="text" id="contactNumber" name="contactNumber" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <!-- Include Bootstrap JavaScript (optional) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function updateFormFields() {
+      const numNamesInput = document.getElementById('numNames');
+      const nameFieldsContainer = document.getElementById('nameFieldsContainer');
+
+      const numNames = parseInt(numNamesInput.value);
+
+      // Clear existing name fields
+      nameFieldsContainer.innerHTML = '';
+
+      // Add new name fields based on the number of names
+      for (let i = 0; i < numNames; i++) {
+        const nameFieldset = document.createElement('fieldset');
+        const legend = document.createElement('legend');
+        legend.textContent = `Name ${i + 1}`;
+        nameFieldset.appendChild(legend);
+
+        const nameLabel = document.createElement('label');
+        nameLabel.textContent = 'Name:';
+        const nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.name = `name_${i}`;
+        nameInput.required = true;
+        nameInput.classList.add('form-control');
+
+        const surnameLabel = document.createElement('label');
+        surnameLabel.textContent = 'Surname:';
+        const surnameInput = document.createElement('input');
+        surnameInput.type = 'text';
+        surnameInput.name = `surname_${i}`;
+        surnameInput.required = true;
+        surnameInput.classList.add('form-control');
+
+        const idNumberLabel = document.createElement('label');
+        idNumberLabel.textContent = 'ID Number:';
+        const idNumberInput = document.createElement('input');
+        idNumberInput.type = 'text';
+        idNumberInput.name = `idNumber_${i}`;
+        idNumberInput.required = true;
+        idNumberInput.classList.add('form-control');
+
+        const emailLabel = document.createElement('label');
+        emailLabel.textContent = 'Email:';
+        const emailInput = document.createElement('input');
+        emailInput.type = 'email';
+        emailInput.name = `email_${i}`;
+        // Add the required attribute only if it's the first email field
+        emailInput.required = i === 0;
+        emailInput.classList.add('form-control');
+
+        const contactLabel = document.createElement('label');
+        contactLabel.textContent = 'Contact Number:';
+        const contactInput = document.createElement('input');
+        contactInput.type = 'text';
+        contactInput.name = `contactNumber_${i}`;
+        contactInput.required = false;
+        contactInput.classList.add('form-control');
+
+        nameFieldset.appendChild(nameLabel);
+        nameFieldset.appendChild(nameInput);
+        nameFieldset.appendChild(surnameLabel);
+        nameFieldset.appendChild(surnameInput);
+        nameFieldset.appendChild(idNumberLabel);
+        nameFieldset.appendChild(idNumberInput);
+        nameFieldset.appendChild(emailLabel);
+        nameFieldset.appendChild(emailInput);
+        nameFieldset.appendChild(contactLabel);
+        nameFieldset.appendChild(contactInput);
+
+        nameFieldsContainer.appendChild(nameFieldset);
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
