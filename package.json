@@ -2,7 +2,7 @@
   "name": "agreements",
   "version": "1.0.0",
   "description": "",
-  "main": "test2.js",
+  "main": "agreement_main.js",
   "author": "",
   "license": "ISC",
   "dependencies": {

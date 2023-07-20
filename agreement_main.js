@@ -15,14 +15,68 @@ app.get('/', (req, res) => {
 
 // Handle form submission
 app.post('/submit', (req, res) => {
-    const formData = req.body;
-  
-    // Create a JSON object with the form data
-    const jsonData = {
-      fullNames: [],
-      idNumber: [],
-      contactNumbers: [], // Change the key to plural
-      emails: [], // Add a new key for emails
+  const formData = req.body;
+
+  // Create an array to store the full names
+  const fullNames = [];
+
+  // Iterate over the submitted names and surnames
+  for (let i = 0; i < formData.numNames; i++) {
+      const name = formData[`name_${i}`];
+      const surname = formData[`surname_${i}`];
+      const fullName = `${name} ${surname}`;
+      fullNames.push(fullName);
+  }
+  // Capitalize each full name element in the array
+  const capitalizedFullNames = fullNames.map((name) => name.toUpperCase());
+
+  // Print out fullNames for testing
+  console.log("Full Names:", fullNames);
+
+  // Create an array to store the ID numbers
+  const idNumbers = [];
+
+  // Iterate over the submitted ID numbers
+  for (let i = 0; i < formData.numNames; i++) {
+      const idNumber = formData[`idNumber_${i}`];
+      idNumbers.push(idNumber);
+  }
+
+  // Print out idNumbers for testing
+  console.log("ID Numbers:", idNumbers);
+
+  // Create an array to store the contact numbers
+  const contactNumbers = [];
+
+  // Iterate over the submitted contact numbers
+  for (let i = 0; i < formData.numNames; i++) {
+      const contactNumber = formData[`contactNumber_${i}`];
+      contactNumbers.push(contactNumber);
+  }
+
+  // Print out contactNumbers for testing
+  console.log("Contact Numbers:", contactNumbers);
+
+  // Create an array to store the emails
+  const emails = [];
+
+  // Iterate over the submitted emails
+  for (let i = 0; i < formData.numNames; i++) {
+      const email = formData[`email_${i}`];
+      emails.push(email);
+  }
+
+  // Print out emails for testing
+  console.log("Emails:", emails);
+
+  const primaryContactNumber = formData['contactNumber_0'];
+
+  // Now, let's create the jsonData object with the form data
+  const jsonData = {
+      fullNames: capitalizedFullNames.join(' and '), // Join the array into a single string
+      idNumber: idNumbers.join(' and '),
+      contactNumbers: contactNumbers.join(' and '), // Use the new key for the array
+      emails: emails.join(' and '), // Add the email to the new array
       address: formData.address,
       noUnits: formData.noUnits,
       propertyDescription: `${formData.erf}, ${formData.address}, Title deed number ${formData.titleNumber}`,
@@ -32,19 +86,14 @@ app.post('/submit', (req, res) => {
       accountHolder: formData.accountHolder,
       accountNumber: formData.accountNumber,
       accountType: formData.accountType,
-      primaryContactNumber: formData.contactNumber, // Use a new key for the single value
+      primaryContactNumber: primaryContactNumber, // Use a new key for the single value
       erf: formData.erf,
-    };
-  
-    // Iterate over the submitted form data and extract values into the JSON object
-    for (let i = 0; i < formData.numNames; i++) {
-      jsonData.fullNames.push(`${formData[`name_${i}`]} ${formData[`surname_${i}`]}`);
-      jsonData.idNumber.push(formData[`idNumber_${i}`]);
-      jsonData.contactNumbers.push(formData[`contactNumber_${i}`]); // Use the new key for the array
-      jsonData.emails.push(formData[`email_${i}`]); // Add the email to the new array
-    }
+  };
 
-  // Adobe Document Merge
+  // Print out the complete jsonData for testing
+  console.log("JSON Data:", jsonData);
+  
+    // Adobe Document Merge
   try {
     const credentials = PDFServicesSdk.Credentials.servicePrincipalCredentialsBuilder()
       .withClientId("c8e4cd5828dd4a73bad876a83e3714a4")
@@ -57,10 +106,10 @@ app.post('/submit', (req, res) => {
     const options = new documentMergeOptions.DocumentMergeOptions(jsonData, documentMergeOptions.OutputFormat.PDF);
 
     const documentMergeOperation = documentMerge.Operation.createNew(options);
-    const input = PDFServicesSdk.FileRef.createFromLocalFile(__dirname + '/templates/test.docx');
+    const input = PDFServicesSdk.FileRef.createFromLocalFile(__dirname + '/templates/notarial_lease_template.docx');
     documentMergeOperation.setInput(input);
 
-    const fileName = jsonData.fullNames.join(' and ') + ' Partnership Agreement with Bitprop.pdf';
+    const fileName = fullNames.join(' and ') + ' Partnership Agreement with Bitprop.pdf';
     const outputPath = __dirname + '/' + fileName;
 
     documentMergeOperation.execute(executionContext)
