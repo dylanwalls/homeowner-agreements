@@ -79,7 +79,7 @@ app.post('/submit', (req, res) => {
       emails: emails.join(' and '), // Add the email to the new array
       address: formData.address,
       noUnits: formData.noUnits,
-      propertyDescription: `${formData.erf}, ${formData.address}, Title deed number ${formData.titleNumber}`,
+      propertyDescription: `Erf ${formData.erf}, ${formData.address}, Title deed number ${formData.titleNumber}`,
       noYears: formData.noYears,
       noMonths: formData.noMonths,
       bank: formData.bank,
