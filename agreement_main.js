@@ -112,6 +112,11 @@ app.post('/submit', (req, res) => {
     const fileName = fullNames.join(' and ') + ' Partnership Agreement with Bitprop.pdf';
     const outputPath = __dirname + '/' + fileName;
 
+    if (fs.existsSync(outputPath)) {
+      console.log('Duplicate file - removing original version');
+      fs.unlinkSync(outputPath); // Remove the existing file before saving the new one
+    }
+
     documentMergeOperation.execute(executionContext)
       .then(result => result.saveAsFile(outputPath))
       .then(() => {
