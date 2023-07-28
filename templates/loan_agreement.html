@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Loan Agreement Form</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Loan Agreement Form</h2>
+    <form action="/submit_loan_agreement" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="fullNames" class="form-label">Full Names:</label>
+        <input type="text" id="fullNames" name="fullNames" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="idNo" class="form-label">ID Number:</label>
+        <input type="text" id="idNo" name="idNo" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="totalInvestment" class="form-label">Total Investment:</label>
+        <input type="number" id="totalInvestment" name="totalInvestment" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="totalInvestmentWords" class="form-label">Total Investment (in words):</label>
+        <input type="text" id="totalInvestmentWords" name="totalInvestmentWords" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="dayAgreement" class="form-label">Day of Agreement:</label>
+        <input type="text" id="dayAgreement" name="dayAgreement" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="monthAgreement" class="form-label">Month of Agreement:</label>
+        <input type="text" id="monthAgreement" name="monthAgreement" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="yearAgreement" class="form-label">Year of Agreement:</label>
+        <input type="text" id="yearAgreement" name="yearAgreement" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="address" class="form-label">Address:</label>
+        <input type="text" id="address" name="address" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <!-- Include Bootstrap JavaScript (optional) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
