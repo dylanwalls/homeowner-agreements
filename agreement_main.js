@@ -126,7 +126,6 @@ app.post('/submit_cession', (req, res) => {
     agreementMonthYear: formData.agreementMonthYear,
   };
 
-  print(jsonData)
   generatePDF('cession_template.docx', jsonData)
     .then((fileName) => {
       res.redirect(`/success?file=${encodeURIComponent(fileName)}`);
