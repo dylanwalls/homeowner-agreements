@@ -1,12 +1,42 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
+const multer = require('multer'); // Require the multer package
+const { sendInspectionForm } = require('./whatsapp_integration.js');
+const { send } = require('process');
 
 const app = express();
 const port = 8080;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'styles')));
+app.use(express.static('uploads')); // Serve uploaded files statically
+
+// Configure multer for handling file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/') // Upload files to the 'uploads' directory
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const extension = path.extname(file.originalname);
+    cb(null, uniqueSuffix + extension); // Generate a unique filename
+  }
+});
+
+const upload = multer({ storage: storage });
+
+// Route for handling file uploads
+app.post('/upload/:section', upload.single('images'), (req, res) => {
+  const section = req.params.section; // Get the section from the URL parameter
+  const uploadedImage = req.file.filename; // Get the uploaded filename
+  // Store the filename in your database or wherever you want
+  res.send('File uploaded successfully');
+});
+
 
 // Serve the landing page
 app.get('/', (req, res) => {
@@ -17,6 +47,7 @@ app.get('/', (req, res) => {
       <li><a href="/cession">Cession Agreement Form</a></li>
       <li><a href="/poa">Power of Attorney Form</a></li>
       <li><a href="/loan_agreement">Loan Agreement Form</a></li>
+      <li><a href="/inspection">Inspection Form</a></li>
     </ul>
   `);
 });
@@ -189,6 +220,66 @@ app.post('/submit_loan_agreement', (req, res) => {
     });
 });
 
+// Route for Inpsection Form
+app.get('/inspection', (req, res) => {
+  res.sendFile(__dirname + '/templates/inspection.html');
+});
+
+app.post('/submit_inspection', (req, res) => {
+  const formData = req.body;
+
+  // Server-side validation for phone number
+  const phoneNumber = formData.phone;
+  if (!isValidPhoneNumber(phoneNumber)) {
+    return res.status(400).send('Invalid phone number');
+  }
+
+  console.log('FORM DATA:', formData);
+
+  const jsonData = {
+    name: formData.name,
+    surname: formData.surname,
+    phone: formData.phone,
+    address: formData.address,
+    flatLetter: formData.flatLetter,
+    flat_status: formData.flat_status,
+    flat_notes: formData.flat_notes,
+    bathroom_status: formData.bathroom_status,
+    bathroom_notes: formData.bathroom_notes,
+    kitchen_status: formData.kitchen_status,
+    kitchen_notes: formData.kitchen_notes,
+    lounge_status: formData.lounge_status,
+    lounge_notes: formData.lounge_notes,
+  };
+
+  generatePDF('inspection_form_template.docx', jsonData)
+    .then((fileName) => {
+      const name = formData.name;
+      const phone = '+27' + formData.phone.slice(1);
+
+      // Call the sendInspectionForm function
+      sendInspectionForm(name, phone, fileName)
+        .then((name, phone) => {
+          // Message sent successfully
+          console.log('Message sent successfully to:', name, phone);
+          // Here you can return a success message to the client or perform other actions.
+      })
+      .catch((error) => {
+        // Error occurred while sending the message
+        console.error('Error sending WhatsApp message:', error);
+        // Here you can return an error message to the client or handle the error as needed.
+      });
+    res.redirect(`/success?file=${encodeURIComponent(fileName)}`);
+  })
+  .catch((err) => {
+    console.error('Error generating PDF:', err);
+    return res.status(500).send('Error generating PDF');
+  });
+});
+
+
+
+
 // Success page
 app.get('/success', (req, res) => {
   const { file } = req.query;
@@ -257,6 +348,7 @@ function generatePDF(templateFileName, jsonData) {
       documentMergeOperation.execute(executionContext)
         .then(result => result.saveAsFile(outputPath))
         .then(() => {
+          const pdfURL = `http://localhost:${port}/${encodeURIComponent(fileName)}`;
           resolve(fileName);
         })
         .catch(err => {
@@ -275,183 +367,8 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Serve the form page
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/templates/form.html');
-// });
-
-// // Handle form submission
-// app.post('/submit', (req, res) => {
-//   const formData = req.body;
-
-//   // Create an array to store the full names
-//   const fullNames = [];
-
-//   // Iterate over the submitted names and surnames
-//   for (let i = 0; i < formData.numNames; i++) {
-//       const name = formData[`name_${i}`];
-//       const surname = formData[`surname_${i}`];
-//       const fullName = `${name} ${surname}`;
-//       fullNames.push(fullName);
-//   }
-//   // Capitalize each full name element in the array
-//   const capitalizedFullNames = fullNames.map((name) => name.toUpperCase());
-
-//   // Print out fullNames for testing
-//   console.log("Full Names:", fullNames);
-
-//   // Create an array to store the ID numbers
-//   const idNumbers = [];
-
-//   // Iterate over the submitted ID numbers
-//   for (let i = 0; i < formData.numNames; i++) {
-//       const idNumber = formData[`idNumber_${i}`];
-//       idNumbers.push(idNumber);
-//   }
-
-//   // Print out idNumbers for testing
-//   console.log("ID Numbers:", idNumbers);
-
-//   // Create an array to store the contact numbers
-//   const contactNumbers = [];
-
-//   // Iterate over the submitted contact numbers
-//   for (let i = 0; i < formData.numNames; i++) {
-//       const contactNumber = formData[`contactNumber_${i}`];
-//       contactNumbers.push(contactNumber);
-//   }
-
-//   // Print out contactNumbers for testing
-//   console.log("Contact Numbers:", contactNumbers);
-
-//   // Create an array to store the emails
-//   const emails = [];
-
-//   // Iterate over the submitted emails
-//   for (let i = 0; i < formData.numNames; i++) {
-//       const email = formData[`email_${i}`];
-//       emails.push(email);
-//   }
-
-//   // Print out emails for testing
-//   console.log("Emails:", emails);
-
-//   const primaryContactNumber = formData['contactNumber_0'];
-
-//   // Now, let's create the jsonData object with the form data
-//   const jsonData = {
-//       fullNames: capitalizedFullNames.join(' and '), // Join the array into a single string
-//       idNumber: idNumbers.join(' and '),
-//       contactNumbers: contactNumbers.join(' and '), // Use the new key for the array
-//       emails: emails.join(' and '), // Add the email to the new array
-//       address: formData.address,
-//       noUnits: formData.noUnits,
-//       propertyDescription: `Erf ${formData.erf}, ${formData.address}, Title deed number ${formData.titleNumber}`,
-//       noYears: formData.noYears,
-//       noMonths: formData.noMonths,
-//       bank: formData.bank,
-//       accountHolder: formData.accountHolder,
-//       accountNumber: formData.accountNumber,
-//       accountType: formData.accountType,
-//       primaryContactNumber: primaryContactNumber, // Use a new key for the single value
-//       erf: formData.erf,
-//   };
-
-//   // Print out the complete jsonData for testing
-//   console.log("JSON Data:", jsonData);
-  
-//     // Adobe Document Merge
-//   try {
-//     const credentials = PDFServicesSdk.Credentials.servicePrincipalCredentialsBuilder()
-//       .withClientId("c8e4cd5828dd4a73bad876a83e3714a4")
-//       .withClientSecret("p8e-4FwcEry59N3aTEvx52Io2z6C4krJCKEK")
-//       .build();
-
-//     const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
-//     const documentMerge = PDFServicesSdk.DocumentMerge;
-//     const documentMergeOptions = documentMerge.options;
-//     const options = new documentMergeOptions.DocumentMergeOptions(jsonData, documentMergeOptions.OutputFormat.PDF);
-
-//     const documentMergeOperation = documentMerge.Operation.createNew(options);
-//     const input = PDFServicesSdk.FileRef.createFromLocalFile(__dirname + '/templates/notarial_lease_template.docx');
-//     documentMergeOperation.setInput(input);
-
-//     const fileName = fullNames.join(' and ') + ' Partnership Agreement with Bitprop.pdf';
-//     const outputPath = __dirname + '/' + fileName;
-
-//     if (fs.existsSync(outputPath)) {
-//       console.log('Duplicate file - removing original version');
-//       fs.unlinkSync(outputPath); // Remove the existing file before saving the new one
-//     }
-
-//     documentMergeOperation.execute(executionContext)
-//       .then(result => result.saveAsFile(outputPath))
-//       .then(() => {
-//         res.redirect(`/success?file=${encodeURIComponent(fileName)}`);
-//       })
-//       .catch(err => {
-//         console.error('Error generating PDF:', err);
-//         return res.status(500).send('Error generating PDF');
-//       });
-//   } catch (err) {
-//     console.log('Exception encountered while executing operation', err);
-//     return res.status(500).send('Error executing document merge operation');
-//   }
-// });
-
-// // Success page
-// app.get('/success', (req, res) => {
-//   const { file } = req.query;
-//   const filePath = __dirname + '/' + file;
-
-//   fs.access(filePath, fs.constants.F_OK, (err) => {
-//     if (err) {
-//       console.error('File not found:', err);
-//       return res.status(404).send('File not found');
-//     }
-
-//     res.send(`
-//       <h1>PDF generated successfully!</h1>
-//       <p><a href="/download?file=${encodeURIComponent(file)}">Download the PDF</a></p>
-//       <p><a href="/">Generate another partnership agreement</a></p>
-//     `);
-//   });
-// });
-
-// // File download
-// app.get('/download', (req, res) => {
-//   const { file } = req.query;
-//   const filePath = __dirname + '/' + file;
-
-//   fs.access(filePath, fs.constants.F_OK, (err) => {
-//     if (err) {
-//       console.error('File not found:', err);
-//       return res.status(404).send('File not found');
-//     }
-
-//     res.download(filePath, file, (err) => {
-//       if (err) {
-//         console.error('Error sending file:', err);
-//         return res.status(500).send('Error sending file');
-//       }
-//     });
-//   });
-// });
-
-// // Start the server
-// app.listen(port, () => {
-//   console.log(`Server running on http://localhost:${port}`);
-// });
+function isValidPhoneNumber(phoneNumber) {
+  // Check if the phone number starts with "0" and has 10 digits
+  const phoneRegex = /^0\d{9}$/;
+  return phoneRegex.test(phoneNumber);
+}

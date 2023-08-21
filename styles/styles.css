@@ -1,0 +1,164 @@
+/* styles.css */
+
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600&display=swap');
+
+/* Body Font */
+body {
+  font-family: 'Urbanist', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+/* 
+Navbar Styles */
+.navbar {
+  background-color: #f8f8f8;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 6px 0;
+  background-color: #211e5a;
+  transition: 0.4s;
+}
+
+.hamburger-icon.open .bar:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger-icon.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-icon.open .bar:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: #f8f8f8;
+  transition: left 0.3s ease-in-out;
+  z-index: 999;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.menu {
+  padding-top: 60px;
+  text-align: center;
+}
+
+.menu button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.menu button:hover {
+  background-color: #ddd;
+}
+
+/* Form Container Styles */
+.container.form {
+  margin: 50px;
+}
+
+/* Section Container Styles */
+.section-container {
+  background-color: white;
+  color: #211e5a;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.section-heading {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Status Button Styles */
+.status-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.status-button {
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.okay {
+  background-color: #211e5a;
+}
+
+.not-okay {
+  background-color: #8c7f7f;
+}
+
+/* Text Input Styles */
+.text-input {
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.notes-text-input {
+  margin-top: 10px;
+}
+
+/* Submit Button Styles */
+.btn-primary {
+  background-color: #211e5a;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #170e3a;
+}
