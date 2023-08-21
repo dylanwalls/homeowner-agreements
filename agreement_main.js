@@ -256,7 +256,7 @@ app.post('/submit_inspection', (req, res) => {
     .then((fileName) => {
       const name = formData.name;
       const phone = '+27' + formData.phone.slice(1);
-      const file_url = 'https://bitpropagreements.azurewebsites.net/' + fileName;
+      const file_url = 'https://documents.bitprop.com/download?file=' + fileName;
 
       // Call the sendInspectionForm function
       sendInspectionForm(name, phone, file_url)
