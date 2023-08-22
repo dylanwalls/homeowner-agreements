@@ -3,11 +3,25 @@ const fs = require('fs');
 const path = require('path');
 const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
 const multer = require('multer'); // Require the multer package
+const basicAuth = require('express-basic-auth');
 const { sendInspectionForm } = require('./whatsapp_integration.js');
 const { send } = require('process');
 
 const app = express();
 const port = 8080;
+
+// Define a username and password for basic authentication
+const users = { 
+  'dylan.walls@bitprop.com': 'bitprop2023',
+  'brittany.newton@bitprop.com': 'bitprop2023',
+};
+
+// Middleware for basic authentication
+const basicAuthMiddleware = basicAuth({
+  users,
+  challenge: true, // Show the authentication dialog when unauthorized
+  unauthorizedResponse: 'Authentication required.', // Custom message for unauthorized access
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -39,7 +53,7 @@ app.post('/upload/:section', upload.single('images'), (req, res) => {
 
 
 // Serve the landing page
-app.get('/', (req, res) => {
+app.get('/', basicAuthMiddleware, (req, res) => {
   res.send(`
     <h1>Welcome to Brittany's Document Generator</h1>
     <ul>
@@ -53,7 +67,7 @@ app.get('/', (req, res) => {
 });
 
 // Route for Partnership Agreement Form
-app.get('/form', (req, res) => {
+app.get('/form', basicAuthMiddleware, (req, res) => {
   res.sendFile(__dirname + '/templates/form.html');
 });
 
@@ -143,7 +157,7 @@ app.post('/submit', (req, res) => {
 });
 
 // Route for Cession Agreement Form
-app.get('/cession', (req, res) => {
+app.get('/cession', basicAuthMiddleware, (req, res) => {
   res.sendFile(__dirname + '/templates/cession.html');
 });
 
@@ -168,7 +182,7 @@ app.post('/submit_cession', (req, res) => {
 });
 
 // Route for Power of Attorney Form
-app.get('/poa', (req, res) => {
+app.get('/poa', basicAuthMiddleware, (req, res) => {
   res.sendFile(__dirname + '/templates/poa.html');
 });
 
@@ -193,7 +207,7 @@ app.post('/submit_poa', (req, res) => {
 });
 
 // Route for Loan Agreement Form
-app.get('/loan_agreement', (req, res) => {
+app.get('/loan_agreement', basicAuthMiddleware, (req, res) => {
   res.sendFile(__dirname + '/templates/loan_agreement.html');
 });
 
@@ -210,7 +224,7 @@ app.post('/submit_loan_agreement', (req, res) => {
     yearAgreement: formData.yearAgreement,
   };
 
-  generatePDF('loan_mpdf_bitprop_template.docx', jsonData)
+  generatePDF('loan_mpdf_bitprop_template.docx', basicAuthMiddleware, jsonData)
     .then((fileName) => {
       res.redirect(`/success?file=${encodeURIComponent(fileName)}`);
     })
