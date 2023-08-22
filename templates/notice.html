@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Notice Form</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Link to your custom styles.css -->
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <!-- Import the Urbanist font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600&display=swap">
+</head>
+<body>
+    <div class="container form">
+        <h2>Notice Form</h2>
+        <form action="/submit_notice" method="POST" class="needs-validation" novalidate> 
+    <div class="mb-3 section-container">
+        <label for="name" class="form-label section-heading">Name:</label>
+        <input type="text" id="name" name="name" class="form-control text-input" required>
+      </div>
+      <div class="mb-3 section-container">
+        <label for="surname" class="form-label section-heading">Surname:</label>
+        <input type="text" id="surname" name="surname" class="form-control text-input" required>
+      </div>
+      <div class="mb-3 section-container">
+        <label for="phone" class="form-label section-heading">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" class="form-control text-input" pattern="0[0-9]{9}" placeholder="0123456789" required inputmode="numeric" minlength="10" maxlength="10">
+        <p id="phone-error" class="error-message"></p>
+      </div>
+      <div class="mb-3 section-container">
+        <label for="address" class="form-label section-heading">Address:</label>
+        <input type="text" id="address" name="address" class="form-control text-input" required>
+      </div>
+      <div class="mb-3 section-container">
+        <label for="flatLetter" class="form-label section-heading">Flat Letter:</label>
+        <input type="text" id="flatLetter" name="flatLetter" class="form-control text-input" required>
+      </div>
+    <div class="mb-3 section-container">
+        <label for="bank" class="form-label section-heading">Bank:</label>
+        <input type="text" id="bank" name="bank" class="form-control text-input" required>
+        </div>
+        <div class="mb-3 section-container">
+        <label for="account_no" class="form-label section-heading">Account Number:</label>
+        <input type="text" id="account_no" name="account_no" class="form-control text-input" required>
+        </div>
+        <div class="mb-3 section-container">
+        <label for="account_type" class="form-label section-heading">Account Type:</label>
+        <input type="text" id="account_type" name="account_type" class="form-control text-input" required>
+        </div>
+        <div class="mb-3 section-container">
+        <label for="notice_date" class="form-label section-heading">Notice Date:</label>
+       <br> <small class="form-text text-muted">Please note that your lease runs to month-end. You cannot end the lease in the middle of the month.</small>
+       <br><br> <small class="form-text text-muted">If the notice date is less than 30 days away from today's date, you will not have provided a sufficient notice period, which will impact your deposit refund.</small>
+        <input type="date" id="notice_date" name="notice_date" class="form-control text-input" required>
+    </div>
+
+    <div class="mb-3 section-container">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="acknowledge" required>
+          <label class="form-check-label" for="acknowledge">
+            I agree that clicking 'Submit' represents my digital signature. 
+            <br><br>
+            Once submitted, a copy of this form will be sent to you via WhatsApp. If you have any pictures or videos related to the inspection, please send them to the WhatsApp number in the next 24 hours for them to be added to the inspection.
+          </label>
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary" id="submitBtn" disabled>Submit</button>
+    </form>
+    <!-- <iframe id="image_upload_frame" name="image_upload_frame" style="display: none;"></iframe> -->
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkbox = document.getElementById('acknowledge')
+        const submitButton = document.getElementById('submit-button');
+
+        checkbox.addEventListener('change', function () {
+            submitBtn.disabled = !checkbox.checked;
+        });
+    });
+
+    const phoneInput = document.getElementById('phone');
+    const phoneError = document.getElementById('phone-error');
+
+    phoneInput.addEventListener('input', function () {
+      // Remove any non-numeric characters
+      this.value = this.value.replace(/\D/g, '');
+
+      // Ensure the first digit is '0'
+      if (this.value.length > 0 && this.value[0] !== '0') {
+        this.value = '0' + this.value;
+      }
+
+      // Limit to 10 digits
+      if (this.value.length > 10) {
+        this.value = this.value.substring(0, 10);
+      }
+
+      // Clear the error message when the user corrects the input
+      phoneError.textContent = '';
+    });
+
+    // Add form submission event listener
+    document.querySelector('form').addEventListener('submit', function (e) {
+      if (phoneInput.value.length !== 10) {
+        e.preventDefault(); // Prevent form submission
+        phoneInput.style.borderColor = 'red'; // Highlight the field in red
+        phoneError.textContent = 'Invalid phone number'; // Display error message
+      }
+    });
+  </script>
+  </body>
+  </html>

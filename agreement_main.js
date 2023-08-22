@@ -61,6 +61,7 @@ app.get('/', basicAuthMiddleware, (req, res) => {
       <li><a href="/cession">Cession Agreement Form</a></li>
       <li><a href="/poa">Power of Attorney Form</a></li>
       <li><a href="/loan_agreement">Loan Agreement Form</a></li>
+      <li><a href="/notice">Notice Form</a></li>
       <li><a href="/inspection">Inspection Form</a></li>
     </ul>
   `);
@@ -234,6 +235,137 @@ app.post('/submit_loan_agreement', (req, res) => {
     });
 });
 
+// Route for Notice Period
+app.get('/notice', (req, res) => {
+  res.sendFile(__dirname + '/templates/notice.html');
+});
+
+app.post('/submit_notice', (req, res) => {
+  const formData = req.body;
+
+  // Server-side validation for phone number
+  const phoneNumber = formData.phone;
+  if (!isValidPhoneNumber(phoneNumber)) {
+    return res.status(400).send('Invalid phone number');
+  }
+
+  console.log('FORM DATA:', formData);
+  // Get the current date and time as a string
+  const currentDateTime = new Date().toLocaleString();
+
+  const noticeData = {
+    name: formData.name,
+    surname: formData.surname,
+    phone: formData.phone,
+    address: formData.address,
+    flatLetter: formData.flatLetter,
+    bank: formData.bank,
+    account_no: formData.account_no,
+    account_type: formData.account_type,
+    notice_date: formData.notice_date,
+    date: currentDateTime,
+  };  
+
+  sendWhatsAppMessage(noticeData)
+    .then(() => {
+      res.redirect(`/success_notice`);
+    })
+    .catch((err) => {
+      console.error('Error generating PDF:', err);
+      return res.status(500).send('Error generating PDF');
+    });
+});
+
+async function sendWhatsAppMessage(data) {
+  console.log('Calling sendWhatsAppMessage');
+
+  try {
+    const sendMessageOptions = {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTFkZjRkMDE2MjgzYTE1YjI4NDY3YjAyNGQzNDdkZjBkN2YyNWZmMjBkNzA0MmU1NDYyYTU1OTM0YjVlYjNlMmM5M2IyZmY4NDFmYWViNGMiLCJpYXQiOjE2ODgzOTYyMDIuMzI0NTI5LCJuYmYiOjE2ODgzOTYyMDIuMzI0NTMxLCJleHAiOjQ4MTI1MzM4MDIuMzE0MzY1LCJzdWIiOiI2MDY4NTQiLCJzY29wZXMiOltdfQ.MGKjhmw8mY-6tji1z4rsOG_9BTLTYasN6vgTNUjiFUeukAMz0sSTz4sFtifzV2L5Go4JIBooGYLeaKQfFIMHEA',
+        'accept': 'application/json',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        params: [
+          { key: '{{1}}', value: data.name } ,
+          { key: '{{2}}', value: data.date },
+          { key: '{{3}}', value: data.notice_date }
+       ],
+        recipient_phone_number: '+27' + data.phone.slice(1), // Dylan's number
+        hsm_id: '141430' // Replace with your WhatsApp template HSM ID
+      })
+    };
+    const sendResponse = await fetch('https://app.trengo.com/api/v2/wa_sessions', sendMessageOptions);
+    const sendData = await sendResponse.json();
+    console.log('API Response:', sendData);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
+
+  const now = new Date();
+  const incidentDate = now.toISOString();
+  const { DateTime } = require('luxon');
+  const now3 = DateTime.local().setZone('Africa/Johannesburg');
+  const formattedIncidentDate2 = now3.toFormat('dd/MM/yyyy HH:mm');
+
+  const timeOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  }; 
+  
+  tenant_name = data.name + ' ' + data.surname;
+  const url = 'https://za-living-api-pub-01.indlu.co/public/api/external/workspace/endpoint/Submit';
+  const postMessageOptions = {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTFkZjRkMDE2MjgzYTE1YjI4NDY3YjAyNGQzNDdkZjBkN2YyNWZmMjBkNzA0MmU1NDYyYTU1OTM0YjVlYjNlMmM5M2IyZmY4NDFmYWViNGMiLCJpYXQiOjE2ODgzOTYyMDIuMzI0NTI5LCJuYmYiOjE2ODgzOTYyMDIuMzI0NTMxLCJleHAiOjQ4MTI1MzM4MDIuMzE0MzY1LCJzdWIiOiI2MDY4NTQiLCJzY29wZXMiOltdfQ.MGKjhmw8mY-6tji1z4rsOG_9BTLTYasN6vgTNUjiFUeukAMz0sSTz4sFtifzV2L5Go4JIBooGYLeaKQfFIMHEA',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'workspaceCode': 'DEP',
+      'recaptchaSiteKey': 'f9fd2260-1c0b-4ab1-9679-266e31234e5b',
+      'payload': JSON.stringify({
+        // 'building': {
+        //   'id': 'ac9dd556-8a83-49e3-2393-08da6b352223',
+        //   'buildingNo': 'IB-0000000144',
+        // },
+        // 'rentalUnit': {
+        //   'id': '10b645ee-940d-45e3-f851-08da6b35226b',
+        //   'refNo': 'ZAWC4935031311',
+        // },
+        'tenant': tenant_name,
+        'address': data.address,
+        'phone': data.phone,
+        'bankName': data.bank,
+        'accountNumber': data.account_no,
+        'accountType': data.account_type,
+        'noticeDate': data.notice_date,
+      }),
+    }),
+  };
+
+  const postResponse = await fetch(url, postMessageOptions);
+  // const postData = await postResponse.json();
+  // console.log('API Response:', postData);
+}
+
+
+
+
+
+
+
+
+
+
 // Route for Inpsection Form
 app.get('/inspection', (req, res) => {
   res.sendFile(__dirname + '/templates/inspection.html');
@@ -344,6 +476,12 @@ app.get('/success', (req, res) => {
     `);
   });
 });
+
+// Route for displaying success message for the notice form
+app.get('/success_notice', (req, res) => {
+  res.send('Notice submitted successfully.');
+});
+
 
 // File download
 app.get('/download', (req, res) => {
