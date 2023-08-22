@@ -112,6 +112,161 @@
           <label class="form-label section-heading">Upload Images:</label>
           <input type="file"  id="lounge_image" name="lounge_images">
         </div> -->
+
+        <!-- Floor Status -->
+      <div id="floor_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Floor Status:</label>
+        <div class="status-buttons" role="group" aria-label="Floor Status">
+          <input type="hidden" id="floor_status" name="floor_status" value="">
+          <button id="floor_okay" type="button" class="status-button okay" onclick="updateStatus('floor', 'Okay')">Okay</button>
+          <button id="floor_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('floor', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="floor_notes" name="floor_notes" class="form-control text-input notes-text-input" placeholder="Floor Notes">
+      </div>
+
+      <!-- Door Status -->
+      <div id="door_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Door Status:</label>
+        <div class="status-buttons" role="group" aria-label="Door Status">
+          <input type="hidden" id="door_status" name="door_status" value="">
+          <button id="door_okay" type="button" class="status-button okay" onclick="updateStatus('door', 'Okay')">Okay</button>
+          <button id="door_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('door', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="door_notes" name="door_notes" class="form-control text-input notes-text-input" placeholder="Door Notes">
+      </div>
+
+      <!-- Lights Status -->
+      <div id="lights_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Lights Status:</label>
+        <div class="status-buttons" role="group" aria-label="Lights Status">
+          <input type="hidden" id="lights_status" name="lights_status" value="">
+          <button id="lights_okay" type="button" class="status-button okay" onclick="updateStatus('lights', 'Okay')">Okay</button>
+          <button id="lights_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('lights', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="lights_notes" name="lights_notes" class="form-control text-input notes-text-input" placeholder="Lights Notes">
+      </div>
+
+      <!-- Windows Status -->
+      <div id="windows_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Windows Status:</label>
+        <div class="status-buttons" role="group" aria-label="Windows Status">
+          <input type="hidden" id="windows_status" name="windows_status" value="">
+          <button id="windows_okay" type="button" class="status-button okay" onclick="updateStatus('windows', 'Okay')">Okay</button>
+          <button id="windows_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('windows', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="windows_notes" name="windows_notes" class="form-control text-input notes-text-input" placeholder="Windows Notes">
+      </div>
+
+      <!-- Ceiling Status -->
+      <div id="ceiling_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Ceiling Status:</label>
+        <div class="status-buttons" role="group" aria-label="Ceiling Status">
+          <input type="hidden" id="ceiling_status" name="ceiling_status" value="">
+          <button id="ceiling_okay" type="button" class="status-button okay" onclick="updateStatus('ceiling', 'Okay')">Okay</button>
+          <button id="ceiling_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('ceiling', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="ceiling_notes" name="ceiling_notes" class="form-control text-input notes-text-input" placeholder="Ceiling Notes">
+      </div>
+
+      <!-- Walls Status -->
+      <div id="walls_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Walls Status:</label>
+        <div class="status-buttons" role="group" aria-label="Walls Status">
+          <input type="hidden" id="walls_status" name="walls_status" value="">
+          <button id="walls_okay" type="button" class="status-button okay" onclick="updateStatus('walls', 'Okay')">Okay</button>
+          <button id="walls_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('walls', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="walls_notes" name="walls_notes" class="form-control text-input notes-text-input" placeholder="Walls Notes">
+      </div>
+
+      <!-- Built-in Cupboards Status -->
+      <div id="cupboards_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Built-in Cupboards Status:</label>
+        <div class="status-buttons" role="group" aria-label="Built-in Cupboards Status">
+          <input type="hidden" id="cupboards_status" name="cupboards_status" value="">
+          <button id="cupboards_okay" type="button" class="status-button okay" onclick="updateStatus('cupboards', 'Okay')">Okay</button>
+          <button id="cupboards_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('cupboards', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="cupboards_notes" name="cupboards_notes" class="form-control text-input notes-text-input" placeholder="Built-in Cupboards Notes">
+      </div>
+
+      <!-- Electricity Box Status -->
+      <div id="electricity_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Electricity Box Status:</label>
+        <div class="status-buttons" role="group" aria-label="Electricity Box Status">
+          <input type="hidden" id="electricity_status" name="electricity_status" value="">
+          <button id="electricity_okay" type="button" class="status-button okay" onclick="updateStatus('electricity', 'Okay')">Okay</button>
+          <button id="electricity_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('electricity', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="electricity_notes" name="electricity_notes" class="form-control text-input notes-text-input" placeholder="Electricity Box Notes">
+      </div>
+
+      <!-- Keys Status -->
+      <div id="keys_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Keys Status:</label>
+        <div class="status-buttons" role="group" aria-label="Keys Status">
+          <input type="hidden" id="keys_status" name="keys_status" value="">
+          <button id="keys_okay" type="button" class="status-button okay" onclick="updateStatus('keys', 'Okay')">Okay</button>
+          <button id="keys_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('keys', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="keys_notes" name="keys_notes" class="form-control text-input notes-text-input" placeholder="Keys Notes">
+      </div>
+
+      <!-- Basin and Taps Status -->
+      <div id="basin_taps_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Basin and Taps Status:</label>
+        <div class="status-buttons" role="group" aria-label="Basin and Taps Status">
+          <input type="hidden" id="basin_taps_status" name="basin_taps_status" value="">
+          <button id="basin_taps_okay" type="button" class="status-button okay" onclick="updateStatus('basin_taps', 'Okay')">Okay</button>
+          <button id="basin_taps_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('basin_taps', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="basin_taps_notes" name="basin_taps_notes" class="form-control text-input notes-text-input" placeholder="Basin and Taps Notes">
+      </div>
+
+      <!-- Toilet Status -->
+      <div id="toilet_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Toilet Status:</label>
+        <div class="status-buttons" role="group" aria-label="Toilet Status">
+          <input type="hidden" id="toilet_status" name="toilet_status" value="">
+          <button id="toilet_okay" type="button" class="status-button okay" onclick="updateStatus('toilet', 'Okay')">Okay</button>
+          <button id="toilet_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('toilet', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="toilet_notes" name="toilet_notes" class="form-control text-input notes-text-input" placeholder="Toilet Notes">
+      </div>
+
+      <!-- Shower Status -->
+      <div id="shower_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Shower Status:</label>
+        <div class="status-buttons" role="group" aria-label="Shower Status">
+          <input type="hidden" id="shower_status" name="shower_status" value="">
+          <button id="shower_okay" type="button" class="status-button okay" onclick="updateStatus('shower', 'Okay')">Okay</button>
+          <button id="shower_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('shower', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="shower_notes" name="shower_notes" class="form-control text-input notes-text-input" placeholder="Shower Notes">
+      </div>
+
+      <!-- Sink and Taps Status -->
+      <div id="sink_taps_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Sink and Taps Status:</label>
+        <div class="status-buttons" role="group" aria-label="Sink and Taps Status">
+          <input type="hidden" id="sink_taps_status" name="sink_taps_status" value="">
+          <button id="sink_taps_okay" type="button" class="status-button okay" onclick="updateStatus('sink_taps', 'Okay')">Okay</button>
+          <button id="sink_taps_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('sink_taps', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="sink_taps_notes" name="sink_taps_notes" class="form-control text-input notes-text-input" placeholder="Sink and Taps Notes">
+      </div>
+
+      <!-- Countertop Status -->
+      <div id="countertop_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Countertop Status:</label>
+        <div class="status-buttons" role="group" aria-label="Countertop Status">
+          <input type="hidden" id="countertop_status" name="countertop_status" value="">
+          <button id="countertop_okay" type="button" class="status-button okay" onclick="updateStatus('countertop', 'Okay')">Okay</button>
+          <button id="countertop_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('countertop', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="countertop_notes" name="countertop_notes" class="form-control text-input notes-text-input" placeholder="Countertop Notes">
+      </div>
+
       </div>
       <div class="mb-3 section-container">
         <div class="form-check">
@@ -134,10 +289,11 @@
   <script>
     // Run this function when the page loads
     window.onload = function() {
-      updateStatus('flat', 'Okay');
-      updateStatus('bathroom', 'Okay');
-      updateStatus('kitchen', 'Okay');
-      updateStatus('lounge', 'Okay');
+      const sections = ['flat', 'bathroom', 'kitchen', 'lounge', 'floor', 'door', 'lights', 'windows', 'ceiling', 'walls', 'cupboards', 'electricity', 'keys', 'basin_taps', 'toilet', 'shower', 'sink_taps', 'countertop'];
+
+      for (const section of sections) {
+        updateStatus(section, 'Okay');
+      }
     };
 
     function updateStatus(section, value) {
@@ -179,19 +335,18 @@
       }
     }
 
-    // Add event listener for status change to update button styles
-    document.getElementById('flat_status').addEventListener('change', function() {
-      updateStatus('flat', document.getElementById('flat_status').value);
-    });
-    document.getElementById('bathroom_status').addEventListener('change', function() {
-      updateStatus('bathroom', document.getElementById('bathroom_status').value);
-    });
-    document.getElementById('kitchen_status').addEventListener('change', function() {
-      updateStatus('kitchen', document.getElementById('kitchen_status').value);
-    });
-    document.getElementById('lounge_status').addEventListener('change', function() {
-      updateStatus('lounge', document.getElementById('lounge_status').value);
-    });
+    // Add event listeners for status change to update button styles
+    const sections = ['flat', 'bathroom', 'kitchen', 'lounge', 'floor', 'door', 'lights', 'windows', 'ceiling', 'walls', 'cupboards', 'electricity', 'keys', 'countertop', 'basin_taps', 'toilet', 'shower', 'sink_taps', 'countertop'];
+
+    for (const section of sections) {
+      const statusElement = document.getElementById(`${section}_status`);
+      if (statusElement) {
+        statusElement.addEventListener('change', function() {
+          updateStatus(section, statusElement.value);
+        });
+      }
+    }
+
     const checkbox = document.getElementById('acknowledge');
     const submitBtn = document.getElementById('submitBtn');
 

@@ -249,6 +249,8 @@ app.post('/submit_inspection', (req, res) => {
   }
 
   console.log('FORM DATA:', formData);
+  // Get the current date and time as a string
+const currentDateTime = new Date().toLocaleString();
 
   const jsonData = {
     name: formData.name,
@@ -264,7 +266,36 @@ app.post('/submit_inspection', (req, res) => {
     kitchen_notes: formData.kitchen_notes,
     lounge_status: formData.lounge_status,
     lounge_notes: formData.lounge_notes,
-  };
+    floor_status: formData.floor_status,
+    floor_notes: formData.floor_notes,
+    door_status: formData.door_status,
+    door_notes: formData.door_notes,
+    lights_status: formData.lights_status,
+    lights_notes: formData.lights_notes,
+    windows_status: formData.windows_status,
+    windows_notes: formData.windows_notes,
+    ceiling_status: formData.ceiling_status,
+    ceiling_notes: formData.ceiling_notes,
+    walls_status: formData.walls_status,
+    walls_notes: formData.walls_notes,
+    cupboards_status: formData.cupboards_status,
+    cupboards_notes: formData.cupboards_notes,
+    electricity_status: formData.electricity_status,
+    electricity_notes: formData.electricity_notes,
+    keys_status: formData.keys_status,
+    keys_notes: formData.keys_notes,
+    countertop_status: formData.countertop_status,
+    countertop_notes: formData.countertop_notes,
+    basin_taps_status: formData.basin_taps_status,
+    basin_taps_notes: formData.basin_taps_notes,
+    toilet_status: formData.toilet_status,
+    toilet_notes: formData.toilet_notes,
+    shower_status: formData.shower_status,
+    shower_notes: formData.shower_notes,
+    sink_taps_status: formData.sink_taps_status,
+    sink_taps_notes: formData.sink_taps_notes,
+    date: currentDateTime,
+  };  
 
   generatePDF('inspection_form_template.docx', jsonData)
     .then((fileName) => {
