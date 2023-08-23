@@ -15,6 +15,7 @@ const users = {
   'dylan.walls@bitprop.com': 'bitprop2023',
   'brittany.newton@bitprop.com': 'bitprop2023',
   'buhle.gqola@bitprop.com': 'bitprop2023',
+  'vunene.somo@bitprop.com': 'bitprop2023',
 };
 
 // Middleware for basic authentication
