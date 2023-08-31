@@ -267,6 +267,17 @@
         <input type="text" id="countertop_notes" name="countertop_notes" class="form-control text-input notes-text-input" placeholder="Countertop Notes">
       </div>
 
+      <!-- Blinds Status -->
+      <div id="blinds_section" class="mb-3 section-container">
+        <label class="form-label section-heading">Blinds Status:</label>
+        <div class="status-buttons" role="group" aria-label="Blinds Status">
+          <input type="hidden" id="blinds_status" name="blinds_status" value="">
+          <button id="blinds_okay" type="button" class="status-button okay" onclick="updateStatus('blinds', 'Okay')">Okay</button>
+          <button id="blinds_not-okay" type="button" class="status-button not-okay" onclick="updateStatus('blinds', 'Not Okay')">Not Okay</button>
+        </div>
+        <input type="text" id="blinds_notes" name="blinds_notes" class="form-control text-input notes-text-input" placeholder="Blinds Notes">
+      </div>
+
       </div>
       <div class="mb-3 section-container">
         <div class="form-check">
@@ -289,7 +300,7 @@
   <script>
     // Run this function when the page loads
     window.onload = function() {
-      const sections = ['flat', 'bathroom', 'kitchen', 'lounge', 'floor', 'door', 'lights', 'windows', 'ceiling', 'walls', 'cupboards', 'electricity', 'keys', 'basin_taps', 'toilet', 'shower', 'sink_taps', 'countertop'];
+      const sections = ['flat', 'bathroom', 'kitchen', 'lounge', 'floor', 'door', 'lights', 'windows', 'ceiling', 'walls', 'cupboards', 'electricity', 'keys', 'basin_taps', 'toilet', 'shower', 'sink_taps', 'countertop', 'blinds'];
 
       for (const section of sections) {
         updateStatus(section, 'Okay');
@@ -336,7 +347,7 @@
     }
 
     // Add event listeners for status change to update button styles
-    const sections = ['flat', 'bathroom', 'kitchen', 'lounge', 'floor', 'door', 'lights', 'windows', 'ceiling', 'walls', 'cupboards', 'electricity', 'keys', 'countertop', 'basin_taps', 'toilet', 'shower', 'sink_taps', 'countertop'];
+    const sections = ['flat', 'bathroom', 'kitchen', 'lounge', 'floor', 'door', 'lights', 'windows', 'ceiling', 'walls', 'cupboards', 'electricity', 'keys', 'countertop', 'basin_taps', 'toilet', 'shower', 'sink_taps', 'countertop', 'blinds'];
 
     for (const section of sections) {
       const statusElement = document.getElementById(`${section}_status`);
