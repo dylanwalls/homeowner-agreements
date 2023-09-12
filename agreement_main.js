@@ -265,7 +265,7 @@ app.post('/submit_notice', (req, res) => {
     account_no: formData.account_no,
     account_type: formData.account_type,
     notice_date: formData.notice_date,
-    date: currentDateTime,
+    current_date: currentDateTime,
   };  
 
   sendWhatsAppMessage(noticeData)
@@ -292,7 +292,7 @@ async function sendWhatsAppMessage(data) {
       body: JSON.stringify({
         params: [
           { key: '{{1}}', value: data.name } ,
-          { key: '{{2}}', value: data.date },
+          { key: '{{2}}', value: data.current_date },
           { key: '{{3}}', value: data.notice_date }
        ],
         recipient_phone_number: '+27' + data.phone.slice(1), // Dylan's number
@@ -350,6 +350,7 @@ async function sendWhatsAppMessage(data) {
         'accountNumber': data.account_no,
         'accountType': data.account_type,
         'noticeDate': data.notice_date,
+        'currentDate': data.current_date,
       }),
     }),
   };
