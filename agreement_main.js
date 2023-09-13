@@ -295,13 +295,41 @@ async function sendWhatsAppMessage(data) {
           { key: '{{2}}', value: data.current_date },
           { key: '{{3}}', value: data.notice_date }
        ],
-        recipient_phone_number: '+27' + data.phone.slice(1), // Dylan's number
+        recipient_phone_number: '+27' + data.phone.slice(1),
         hsm_id: '141430' // Replace with your WhatsApp template HSM ID
       })
     };
     const sendResponse = await fetch('https://app.trengo.com/api/v2/wa_sessions', sendMessageOptions);
     const sendData = await sendResponse.json();
     console.log('API Response:', sendData);
+
+
+    const fullAddress = data.flatLetter + ' ' + data.address;
+    const recipients = ['+27784130968', '+27798736273']; // Buhle, Phumlani
+    for (const recipient of recipients) {
+      const sendRentalTeamMessage = {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTFkZjRkMDE2MjgzYTE1YjI4NDY3YjAyNGQzNDdkZjBkN2YyNWZmMjBkNzA0MmU1NDYyYTU1OTM0YjVlYjNlMmM5M2IyZmY4NDFmYWViNGMiLCJpYXQiOjE2ODgzOTYyMDIuMzI0NTI5LCJuYmYiOjE2ODgzOTYyMDIuMzI0NTMxLCJleHAiOjQ4MTI1MzM4MDIuMzE0MzY1LCJzdWIiOiI2MDY4NTQiLCJzY29wZXMiOltdfQ.MGKjhmw8mY-6tji1z4rsOG_9BTLTYasN6vgTNUjiFUeukAMz0sSTz4sFtifzV2L5Go4JIBooGYLeaKQfFIMHEA',
+          'accept': 'application/json',
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          params: [
+            { key: '{{1}}', value: data.name } ,
+            { key: '{{2}}', value: fullAddress } ,
+            { key: '{{3}}', value: data.current_date },
+            { key: '{{4}}', value: data.notice_date }
+        ],
+          recipient_phone_number: recipient,
+          hsm_id: '143434' // Replace with your WhatsApp template HSM ID
+        })
+      };
+      const sendRentalTeamResponse = await fetch('https://app.trengo.com/api/v2/wa_sessions', sendRentalTeamMessage);
+      const sendRentalTeamData = await sendRentalTeamResponse.json();
+      console.log('API Response:', sendRentalTeamData);
+    }
+
   } catch (error) {
     console.error(error);
     throw error;
