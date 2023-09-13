@@ -304,8 +304,8 @@ async function sendWhatsAppMessage(data) {
     console.log('API Response:', sendData);
 
 
-    const fullAddress = data.flatLetter + ' ' + data.address;
-    const recipients = ['+27784130968', '+27798736273']; // Buhle, Phumlani
+    const fullAddress = data.flatLetter + ', ' + data.address;
+    const recipients = ['+27785411797', '+27721703241']; // Zandi, Nolitha
     for (const recipient of recipients) {
       const sendRentalTeamMessage = {
         method: 'POST',
