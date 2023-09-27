@@ -65,6 +65,8 @@ app.get('/', basicAuthMiddleware, (req, res) => {
       <li><a href="/loan_agreement">Loan Agreement Form</a></li>
       <li><a href="/notice">Notice Form</a></li>
       <li><a href="/inspection">Inspection Form</a></li>
+      <li><a href="/cession_mpdf_bitprop">Cession Agreement MPDF and Bitprop</a></li>
+      <li><a href="/loan_mpdf_bitprop">Loan Agreement MPDF and Bitprop</a></li>
     </ul>
   `);
 });
@@ -183,6 +185,92 @@ app.post('/submit_cession', (req, res) => {
       return res.status(500).send('Error generating PDF');
     });
 });
+
+// Route for Cession Agreement Form MPDF and Bitprop
+app.get('/cession_mpdf_bitprop', basicAuthMiddleware, (req, res) => {
+  res.sendFile(__dirname + '/templates/cession_MPDF_Bitprop.html');
+});
+
+app.post('/submit_cession_mpdf_bitprop', (req, res) => {
+  const formData = req.body;
+
+  const jsonData = {
+    dateAgreementSigned: formData.dateAgreementSigned,
+    dateOfAgreement: formData.dateOfAgreement,
+    propertyAddress: formData.propertyAddress,
+    agreementDate: formData.agreementDate,
+    dayOfAgreementDate: formData.dayOfAgreementDate,
+    agreementMonthAndYear: formData.agreementMonthAndYear,
+  };
+
+  generatePDF('cession_agreement_Bitprop_MPDF_template.docx', jsonData)
+    .then((fileName) => {
+      res.redirect(`/success?file=${encodeURIComponent(fileName)}`);
+    })
+    .catch((err) => {
+      console.error('Error generating PDF:', err);
+      return res.status(500).send('Error generating PDF');
+    });
+});
+
+
+
+// Route for Loan Agreement
+app.get('/loan_agreement', basicAuthMiddleware, (req, res) => {
+  res.sendFile(__dirname + '/templates/loan_agreement.html');
+});
+
+app.post('/submit_loan_agreement', (req, res) => {
+  const formData = req.body;
+
+  const jsonData = {
+    totalInvestment: formData.totalInvestment,
+    totalInvestmentWords: formData.totalInvestmentWords,
+    dayAgreement: formData.dayAgreement,
+    monthAgreement: formData.monthAgreement,
+    yearAgreement: formData.yearAgreement,
+  };
+
+  generatePDF('loan_mpdf_bitprop_template.docx', jsonData)
+    .then((fileName) => {
+      res.redirect(`/success?file=${encodeURIComponent(fileName)}`);
+    })
+    .catch((err) => {
+      console.error('Error generating PDF:', err);
+      return res.status(500).send('Error generating PDF');
+    });
+});
+
+
+// Route for Loan Agreement Form MPDF and Bitprop
+app.get('/loan_mpdf_bitprop', basicAuthMiddleware, (req, res) => {
+  res.sendFile(__dirname + '/templates/loan_agreement_mpdf_bitprop.html');
+});
+
+app.post('/submit_loan_mpdf_bitprop', (req, res) => {
+  const formData = req.body;
+
+  const jsonData = {
+    propertyAddress: formData.propertyAddress,
+    erfNr: formData.erfNr,
+    titleDeedNr: formData.titleDeedNr,
+    totalInvestment: formData.totalInvestment,
+    totalInWords: formData.totalInWords,
+    dayOfAgreement: formData.dayOfAgreement,
+    monthOfAgreement: formData.monthOfAgreement,
+    yearOfAgreement: formData.yearOfAgreement,
+  };
+
+  generatePDF('loan_agreement_MPDF_Bitprop_template.docx', jsonData)
+    .then((fileName) => {
+      res.redirect(`/success?file=${encodeURIComponent(fileName)}`);
+    })
+    .catch((err) => {
+      console.error('Error generating PDF:', err);
+      return res.status(500).send('Error generating PDF');
+    });
+});
+
 
 // Route for Power of Attorney Form
 app.get('/poa', basicAuthMiddleware, (req, res) => {
