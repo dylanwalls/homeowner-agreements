@@ -67,6 +67,7 @@ app.get('/', basicAuthMiddleware, (req, res) => {
       <li><a href="/inspection">Inspection Form</a></li>
       <li><a href="/cession_mpdf_bitprop">Cession Agreement MPDF and Bitprop</a></li>
       <li><a href="/loan_mpdf_bitprop">Loan Agreement MPDF and Bitprop</a></li>
+      <li><a href="/tenant_information">Tenant Information Form</a></li>
     </ul>
   `);
 });
@@ -575,7 +576,10 @@ const currentDateTime = new Date().toLocaleString();
 });
 
 
-
+// Route for Tenant Information Form
+app.get('/tenant_information', (req, res) => {
+  res.sendFile(__dirname + '/templates/tenant_information.html');
+});
 
 // Success page
 app.get('/success', (req, res) => {
