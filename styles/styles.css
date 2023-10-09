@@ -162,3 +162,23 @@ Navbar Styles */
 .btn-primary:hover {
   background-color: #170e3a;
 }
+
+.progress-container {
+  width: 100%;
+  background-color: #ccc;
+}
+
+.progress-bar {
+  height: 30px;
+  width: 0;
+  background-color: #221e5a;
+  text-align: center; /* To center the label */
+  line-height: 30px; /* To center the label vertically */
+  color: white; /* Color of the label */
+}
+
+.page-counter {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+}

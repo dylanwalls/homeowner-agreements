@@ -11,7 +11,7 @@
 <body>
 <div class="container form">
   <h2>Tenant Information Form</h2>
-  <form action="/submit_tenant_information" method="POST" class="needs-validation" novalidate>
+  <form action="/submit_tenant_information" method="POST" class="needs-validation" novalidate onsubmit="return handleSubmit();">
 
     <!-- Page 1 -->
     <div class="form-page" id="page1">
@@ -34,6 +34,11 @@
           <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <button type="button" onclick="nextPage(2)" class="btn btn-primary">Next</button>
+        <br><br>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBarPage1"></div>
+        </div>
+        <div class="page-counter" id="pageCounter1"></div>
       </div>
     
     <!-- Page 2: Employment & Household Information -->
@@ -70,22 +75,26 @@
     </div>
     <button type="button" onclick="prevPage(1)" class="btn btn-secondary">Previous</button>
     <button type="button" onclick="nextPage(3)" class="btn btn-primary">Next</button>
+    <br><br>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBarPage2"></div>
+    </div>
+    <div class="page-counter" id="pageCounter2"></div>
   </div>
   
     <!-- Page 3: Previous Housing & References -->
     <div class="form-page" id="page3" style="display:none;">
         <div class="mb-3">
-            <label for="rentalHistory" class="form-label">Rental History:</label>
-            <textarea class="form-control" id="rentalHistory" name="rentalHistory" rows="3" placeholder="Have you rented a property before? If yes, please provide details of your previous rental experience." required></textarea>
+            <label for="rentalHistory" class="form-label">Rental History: Have you rented a property before? If yes, please provide details of your most recent rental experience.</label>
+            <textarea class="form-control" id="rentalHistory" name="rentalHistory" rows="3" placeholder="For example, I stayed in a share-house and I enjoyed it because my room received a lot of light throughout the day." required></textarea>
           </div>
         <div class="mb-3">
           <label for="previousHousing" class="form-label">Before living in this flat, what sort of dwelling were you living in?</label>
           <select class="form-control" id="previousHousing" name="previousHousing" required>
             <option value="flat">Flat</option>
-            <option value="studio">Studio</option>
-            <option value="room">Room</option>
             <option value="house">House</option>
-            <option value="house">Informal dwellling</option>
+            <option value="studentHousing">Student Housing</option>
+            <option value="informalDwelling">Informal Dwellling</option>
             <option value="other">Other</option>
           </select>
         </div>
@@ -93,6 +102,10 @@
             <label for="previousArea" class="form-label">Where did you live before moving here?</label>
             <small class="form-text text-muted">Provide area/suburb/city/country etc.</small>
             <input type="text" class="form-control" id="previousArea" name="previousArea" required>
+        </div>
+        <br>
+        <div class="mb-3">
+            <label for="previousArea" class="form-label" style="font-weight: bold;">Please select Yes or No for each of the following questions:</label>
         </div>
         <div class="mb-3">
             <label for="leaseUnderstanding" class="form-label">I have a clear understanding of the terms and conditions outlined in my lease agreement.</label><br>
@@ -129,6 +142,11 @@
         </div> -->
         <button type="button" onclick="prevPage(2)" class="btn btn-secondary">Previous</button>
         <button type="button" onclick="nextPage(4)" class="btn btn-primary">Next</button>
+        <br><br>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBarPage3"></div>
+        </div>
+        <div class="page-counter" id="pageCounter3"></div>
       </div>
     
 
@@ -136,12 +154,19 @@
       <!-- Page 4: Ratings -->
       <div class="form-page" id="page4" style="display:none;">
         <h3>Ratings</h3>
-        <p>On a scale of 1-5, please rate the following:</p>
+        <div class="mb-3">
+            <label for="previousArea" class="form-label" style="font-weight: bold;">On a scale of 1-5, where 1 means extremely dissatisfied and 5 means extremely satisfied, please rate the following:</label>
+        </div>
         <!-- Place this where you want the form sections to be generated -->
         <div class='mb-3' id="ratingFormSection"></div>
         <!-- Insert a submit button or a button navigating to the next page, depending on your form structure -->
         <button type="button" onclick="prevPage(3)" class="btn btn-secondary">Previous</button>
         <button type="button" onclick="nextPage(5)" class="btn btn-primary">Next</button>
+        <br><br>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBarPage4"></div>
+        </div>     
+        <div class="page-counter" id="pageCounter4"></div>   
     </div>
 
     <!-- Page 5: Bitprop Product Feedback -->
@@ -150,20 +175,20 @@
   
     <!-- Build Quality Section -->
     <div class="mb-3">
-      <label for="buildQuality" class="form-label">Build Quality:</label>
-      <textarea class="form-control" id="buildQuality" name="buildQuality" rows="3" placeholder="Describe the quality of materials, such as the paint, cupboards etc."></textarea>
+      <label for="buildQuality" class="form-label">Build Quality: E.g. Describe the quality of materials, such as the paint, cupboards etc.</label>
+      <textarea class="form-control" id="buildQuality" name="buildQuality" rows="3" placeholder=""></textarea>
     </div>
   
     <!-- Features Section -->
     <div class="mb-3">
-      <label for="featuresIssues" class="form-label">Features:</label>
-      <textarea class="form-control" id="featuresIssues" name="featuresIssues" rows="3" placeholder="Describe any issues with fixtures, like loose door handles."></textarea>
+      <label for="featuresIssues" class="form-label">Features: E.g. Describe any issues with fixtures, like loose door handles.</label>
+      <textarea class="form-control" id="featuresIssues" name="featuresIssues" rows="3" placeholder=""></textarea>
     </div>
   
     <!-- Amenities Ranking Section -->
     <div class="mb-3">
         <label class="form-label">Amenities Importance:</label>
-        <small class="form-text text-muted">Rank the following amenities (1=Most Important, 5=Least Important).</small>
+        <small class="form-text text-muted">Rank the following amenities (4=Most Important, 1=Least Important).</small>
         
         <div class="mb-1">
           <label for="amenityParking" class="form-label d-inline-block w-50">Parking space:</label>
@@ -189,19 +214,9 @@
   
     <!-- Design Feedback Section -->
     <div class="mb-3">
-      <label for="designFeedback" class="form-label">Design Feedback:</label>
+      <label for="designFeedback" class="form-label">Please share your thoughts on our design, considering points such as the layout, size, interior style and exterior style.</label>
       <textarea class="form-control" id="designFeedback" name="designFeedback" rows="3" placeholder="Share your thoughts on the layout and size of your flat."></textarea>
     </div>
-
-    <!-- Aesthetics Section -->
-    <div class="mb-3">
-        <label for="interiorAesthetics" class="form-label">Interior Aesthetics:</label>
-        <textarea class="form-control" id="interiorAesthetics" name="interiorAesthetics" rows="3" placeholder="Share your thoughts on the interior style, colours, and design."></textarea>
-      </div>
-      <div class="mb-3">
-        <label for="exteriorAesthetics" class="form-label">Exterior Aesthetics:</label>
-        <textarea class="form-control" id="exteriorAesthetics" name="exteriorAesthetics" rows="3" placeholder="Share your thoughts on the exterior elements like stairs and railings."></textarea>
-      </div>
   
     <!-- Water Quality Section -->
     <div class="mb-3">
@@ -231,6 +246,11 @@
     <button type="button" onclick="prevPage(4)" class="btn btn-secondary">Previous</button>
     <!-- Adjust navigation as necessary -->
     <button type="button" onclick="nextPage(6)" class="btn btn-primary">Next</button> <!-- If this is not the last page -->
+    <br><br>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBarPage5"></div>
+    </div>
+    <div class="page-counter" id="pageCounter5"></div>    
   </div>
   
   <!-- Page 6: Motivation & Communication Feedback -->
@@ -245,26 +265,8 @@
   
     <!-- Communication - Channels -->
     <div class="mb-3">
-      <label for="communicationChannel" class="form-label">Communication Channel Feedback:</label>
-      <textarea class="form-control" id="communicationChannel" name="communicationChannel" rows="3" placeholder="What do you think about the use of WhatsApp as our primary communication channel?"></textarea>
-    </div>
-  
-    <!-- Communication - Frequency -->
-    <div class="mb-3">
-      <label for="communicationFrequency" class="form-label">Communication Frequency Feedback:</label>
-      <textarea class="form-control" id="communicationFrequency" name="communicationFrequency" rows="3" placeholder="Share your thoughts on the frequency of communication from Bitprop."></textarea>
-    </div>
-  
-    <!-- Communication - Quality -->
-    <div class="mb-3">
-      <label for="communicationQuality" class="form-label">Communication Quality Feedback:</label>
-      <textarea class="form-control" id="communicationQuality" name="communicationQuality" rows="3" placeholder="How useful is the information shared with you in our communication?"></textarea>
-    </div>
-  
-    <!-- Communication - Quantity -->
-    <div class="mb-3">
-      <label for="communicationQuantity" class="form-label">Communication Quantity Feedback:</label>
-      <textarea class="form-control" id="communicationQuantity" name="communicationQuantity" rows="3" placeholder="What do you think about the amount of information Bitprop shares with you?"></textarea>
+      <label for="communicationChannel" class="form-label">Please share your thoughts on our communication in general, considering points such as the channel (WhatsApp), frequency (how often we reach out) and quality (how helpful the information we provide is).</label>
+      <textarea class="form-control" id="communicationChannel" name="communicationChannel" rows="3" placeholder=""></textarea>
     </div>
   
     <!-- Preferred Language -->
@@ -287,6 +289,11 @@
     <!-- Navigation Buttons -->
     <button type="button" onclick="prevPage(5)" class="btn btn-secondary">Previous</button>
         <button type="button" onclick="nextPage(7)" class="btn btn-primary">Next</button>
+        <br><br>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBarPage6"></div>
+        </div> 
+        <div class="page-counter" id="pageCounter6"></div>       
   </div>
   
   <!-- Page 7: Maintenance & Experience Feedback -->
@@ -341,6 +348,11 @@
   
     <button type="button" onclick="prevPage(6)" class="btn btn-secondary">Previous</button>
         <button type="button" onclick="nextPage(8)" class="btn btn-primary">Next</button>
+        <br><br>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBarPage7"></div>
+        </div>      
+        <div class="page-counter" id="pageCounter7"></div>  
   </div>
   
   <!-- Page 8: Area, Online System & Support Feedback -->
@@ -349,20 +361,8 @@
   
     <!-- Area Choice -->
     <div class="mb-3">
-      <label for="areaChoice" class="form-label">Reason for Area Choice:</label>
-      <textarea class="form-control" id="areaChoice" name="areaChoice" rows="3" placeholder="Why did you choose to live in this area? Share factors that influenced your choice, like proximity to family, work, affordability, etc."></textarea>
-    </div>
-  
-    <!-- Area Benefits -->
-    <div class="mb-3">
-      <label for="areaBenefits" class="form-label">Benefits of Your Area:</label>
-      <textarea class="form-control" id="areaBenefits" name="areaBenefits" rows="3" placeholder="What makes this area a good place to live? Consider factors like distance from the city center, community, amenities, etc."></textarea>
-    </div>
-  
-    <!-- Suburb Concerns -->
-    <div class="mb-3">
-      <label for="suburbConcerns" class="form-label">Concerns About Other Suburbs:</label>
-      <textarea class="form-control" id="suburbConcerns" name="suburbConcerns" rows="3" placeholder="What factors would discourage you from moving to this area? Share any concerns like crime, transportation, etc."></textarea>
+      <label for="areaChoice" class="form-label">Please tell us more about how you chose to move to the suburb/area you currently live in? What benefits or concerns did you consider when making this decision?</label>
+      <textarea class="form-control" id="areaChoice" name="areaChoice" rows="3" placeholder=""></textarea>
     </div>
    
     <!-- Support Suggestions -->
@@ -374,6 +374,11 @@
     <!-- Navigation Buttons -->
     <button type="button" onclick="prevPage(7)" class="btn btn-secondary">Previous</button>
     <button type="submit" class="btn btn-primary">Submit</button> <!-- If this is the last page -->
+    <br><br>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBarPage8"></div>
+    </div>    
+    <div class="page-counter" id="pageCounter8"></div>
   </div>
 </div>
   
@@ -383,6 +388,15 @@
 
 
 <script>
+
+    // Function to initialize the form with page 1 displayed
+    function init() {
+        nextPage(1);
+    }
+
+    // Run the init function when the document is fully loaded
+    window.onload = init;
+
     function nextPage(pageNumber) {
         // Hide all pages
         document.querySelectorAll('.form-page').forEach(function(page) {
@@ -390,6 +404,21 @@
         });
         // Show the specified page
         document.getElementById('page' + pageNumber).style.display = 'block';
+
+        // Update progress bar
+        var progressBar = document.getElementById('progressBarPage' + pageNumber);
+        if (progressBar) {
+          var width = (pageNumber / 8) * 100;
+          progressBar.style.width = width + '%';
+        }
+
+        // Update page counter
+        var pageCounter = document.getElementById('pageCounter' + pageNumber);
+        if (pageCounter) {
+          pageCounter.innerText = 'Page ' + pageNumber + '/' + 8;
+        }
+
+        window.scrollTo(0, 0);
     }
     
     function prevPage(pageNumber) {
@@ -399,6 +428,7 @@
     });
     // Show the specified previous page
     document.getElementById('page' + pageNumber).style.display = 'block';
+    window.scrollTo(0, 0);
     }
 
     function toggleTextBox(shouldShow) {
@@ -419,12 +449,12 @@
         "How satisfied are you with the design of your Bitprop flat in terms of livability?",
         "How satisfied are you with your experience applying for this flat?",
         "How pleased are you with how Bitprop team members have treated you?",
-        "Would you encourage someone else to apply for a Bitprop flat?",
+        "Would you encourage someone else to apply to rent a Bitprop flat?",
         "How satisfied are you with how your landlord has treated you as a tenant?",
-        "How is your overall experience with our rent payment method?",
-        "How helpful has the assistance been if you had any questions?",
+        "How is your overall experience with our rent payment method? (How you pay rent each month)",
+        "How helpful has the assistance been from any of the Bitprop team if you have had any questions or issues that you've needed our help resolving?",
         "How well are maintenance issues resolved by Bitprop?",
-        "How would you rate the moving process, both moving in and out?"
+        "How would you rate the moving process? (How was the experience of moving into the flat?"
     ];
 
     const formSection = document.getElementById('ratingFormSection');
@@ -479,9 +509,14 @@
     formSection.appendChild(questionDiv);
     });
 
+    function handleSubmit() {
+      // You may want to do form validation here
 
-
-    
+      // After successful validation and form submission to the server
+      window.location.href = 'tenant_confirmation.html';
+      return false; // Prevent the form from submitting the traditional way
+    } 
+   
     // You might want to set up form submission logic, input validation, etc.
 </script>
 </body>
