@@ -669,6 +669,19 @@ function generatePDF(templateFileName, jsonData) {
   });
 }
 
+// Route to submit tenant-information form
+
+app.post('/submit_tenant_information', (req, res) => {
+  // Process form data here
+  // For example, insert the data into a database
+
+  // Sending a response back to the client
+  res.json({ status: 'success', message: 'Data received!' });
+});
+
+
+
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
@@ -679,3 +692,4 @@ function isValidPhoneNumber(phoneNumber) {
   const phoneRegex = /^0\d{9}$/;
   return phoneRegex.test(phoneNumber);
 }
+

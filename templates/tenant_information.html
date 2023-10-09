@@ -11,7 +11,7 @@
 <body>
 <div class="container form">
   <h2>Tenant Information Form</h2>
-  <form action="/submit_tenant_information" method="POST" class="needs-validation" novalidate onsubmit="return handleSubmit();">
+  <form id="tenant-information-form" method="POST" class="needs-validation" novalidate>
 
     <!-- Page 1 -->
     <div class="form-page" id="page1">
@@ -517,7 +517,96 @@
       return false; // Prevent the form from submitting the traditional way
     } 
    
+
+
+    document.getElementById('tenant-information-form').addEventListener('submit', function(e){
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const formObject = {};
+        formData.forEach((value, key) => {
+            // Optional: Convert numeric fields to integer
+            if (!isNaN(value)) {
+                formObject[key] = parseInt(value, 10);
+            } else if (value === 'yes') { // Convert yes to true, if you have boolean fields
+                formObject[key] = true;
+            } else if (value === 'no') { // Convert no to false, if you have boolean fields
+                formObject[key] = false;
+            } else {
+                formObject[key] = value;
+            }
+        });
+        console.log(formObject);
+        
+        fetch('https://dashboard-function-app-1.azurewebsites.net/api/tenantInformation?code=oFuv1tfjDX013c_nn_mDQJm04JuxGh6A2K-TlfSaLLGAAzFu-E8pXA==', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formObject)
+        })
+        .then(response => response.json())
+        .then(data => console.log('Success:', data))
+        .catch((error) => console.error('Error:', error));
+    });
+
+
     // You might want to set up form submission logic, input validation, etc.
 </script>
 </body>
 </html>
+
+
+
+<!-- Object
+address: "3 De Smit Street"
+amenityDSTV: "4"
+amenityLaundry: "3"
+amenityParking: "2"
+amenityWiFi: "1"
+areaChoice: "Area choice text"
+buildQuality: "Build quality text"
+communicationChannel: "Bad comms"
+contactNumber: "0784130968"
+designFeedback: "Very nice layout"
+electricityExperience: "Bad electricity"
+email: "dyl.w@hotmail.com"
+featuresIssues: "Features text"
+fullName: "Dylan Walls"
+householdSetup: "single"
+incomeBracket: "R2000-R5000"
+jobTitle: "Employed"
+landlordComfort: "Landlord property text"
+landlordPrivacy: "Landlord privacy text"
+landlordResponse: "Landlord response text"
+leaseUnderstanding: "yes"
+maintenanceIssues: "Good maintenance"
+maintenanceMoreInfo: "More information box."
+maintenanceProcess: "Maintenance process text"
+maintenanceResponsibility: "no"
+moreInfo: ""
+movingProcess: "Moving process text"
+preferredLanguage: "isixhosa"
+previousArea: "Cape Town"
+previousHousing: "studentHousing"
+question1: "1"
+question2: "2"
+question3: "3"
+question4: "4"
+question5: "5"
+question6: "4"
+question7: "3"
+question8: "2"
+question9: "1"
+question10: "2"
+question11: "3"
+rentalApplicationProcess: "Rental application process text"
+rentalHistory: "I had a bad rental experience."
+rentalPaymentProcess: "Rental payment process text"
+reputation: "Bitprop's service text"
+residents: "1"
+responseTime: "Good response time"
+safetyFeedback: "Bad safety"
+serviceExperience: "Good Bitprop experience"
+supportSuggestions: "Support improvement text"
+waterQuality: "Good water" -->
