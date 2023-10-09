@@ -27,7 +27,7 @@
         </div>
         <div class="mb-3">
           <label for="contactNumber" class="form-label">Primary Contact Number:</label>
-          <input type="tel" class="form-control" id="contactNumber" name="contactNumber" required>
+          <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email Address:</label>
@@ -516,7 +516,6 @@
       window.location.href = 'tenant_confirmation.html';
       return false; // Prevent the form from submitting the traditional way
     } 
-   
 
 
     document.getElementById('tenant-information-form').addEventListener('submit', function(e){
@@ -526,14 +525,22 @@
         const formObject = {};
         formData.forEach((value, key) => {
             // Optional: Convert numeric fields to integer
-            if (!isNaN(value)) {
-                formObject[key] = parseInt(value, 10);
-            } else if (value === 'yes') { // Convert yes to true, if you have boolean fields
-                formObject[key] = true;
-            } else if (value === 'no') { // Convert no to false, if you have boolean fields
-                formObject[key] = false;
+            if (key === 'contactNumber') {
+              if (typeof value !== 'string') {
+                console.warn('contactNumber should be a string. Converting to string.');
+                value = String(value);
+              }
+              formObject[key] = value;
             } else {
-                formObject[key] = value;
+              if (!isNaN(value)) {
+                  formObject[key] = parseInt(value, 10);
+              } else if (value === 'yes') { // Convert yes to true, if you have boolean fields
+                  formObject[key] = true;
+              } else if (value === 'no') { // Convert no to false, if you have boolean fields
+                  formObject[key] = false;
+              } else {
+                  formObject[key] = value;
+              }
             }
         });
         console.log(formObject);
@@ -545,8 +552,16 @@
             },
             body: JSON.stringify(formObject)
         })
-        .then(response => response.json())
-        .then(data => console.log('Success:', data))
+        .then(response => {
+          if(response.ok) {
+            return response.json();
+          }
+          throw new Error('Network response was not ok');
+        })
+        .then(data => {
+          console.log('Success:', data);
+          window.location.href = 'tenant_confirmation.html';
+        })
         .catch((error) => console.error('Error:', error));
     });
 
