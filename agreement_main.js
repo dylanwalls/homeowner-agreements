@@ -27,6 +27,7 @@ const basicAuthMiddleware = basicAuth({
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('public'));
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'styles')));
 app.use(express.static('uploads')); // Serve uploaded files statically
@@ -606,6 +607,7 @@ app.get('/success_notice', (req, res) => {
 });
 
 
+
 // File download
 app.get('/download', (req, res) => {
   const { file } = req.query;
@@ -679,7 +681,9 @@ app.post('/submit_tenant_information', (req, res) => {
   res.json({ status: 'success', message: 'Data received!' });
 });
 
-
+app.get('/success_tenant_information', (req, res) => {
+  res.sendFile(path.join(__dirname, 'templates', 'tenant_confirmation.html'));
+});
 
 
 // Start the server

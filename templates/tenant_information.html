@@ -27,13 +27,13 @@
         </div>
         <div class="mb-3">
           <label for="contactNumber" class="form-label">Primary Contact Number:</label>
-          <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
+          <input type="text" class="form-control" id="contactNumber" name="contactNumber" pattern="0[0-9]{9}" placeholder="0123456789" required inputmode="numeric" minlength="10" maxlength="10">
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email Address:</label>
           <input type="email" class="form-control" id="email" name="email" required>
         </div>
-        <button type="button" onclick="nextPage(2)" class="btn btn-primary">Next</button>
+        <button type="button" id="next1" class="btn btn-primary">Next</button>
         <br><br>
         <div class="progress-container">
           <div class="progress-bar" id="progressBarPage1"></div>
@@ -50,6 +50,7 @@
     <div class="mb-3">
       <label for="incomeBracket" class="form-label">Income Bracket:</label>
       <select class="form-control" id="incomeBracket" name="incomeBracket" required>
+        <option value="">Select</option>
         <option value="R0-R2000">R0-R2000</option>
         <option value="R2000-R5000">R2000-R5000</option>
         <option value="R5000-R10000">R5000-R10000</option>
@@ -66,6 +67,7 @@
     <div class="mb-3">
       <label for="householdSetup" class="form-label">Distribution of tenants by setup:</label>
       <select class="form-control" id="householdSetup" name="householdSetup" required>
+        <option value="">Select</option>
         <option value="single">Single</option>
         <option value="couple">Couple</option>
         <option value="single">Single Parent</option>
@@ -74,7 +76,7 @@
       </select>
     </div>
     <button type="button" onclick="prevPage(1)" class="btn btn-secondary">Previous</button>
-    <button type="button" onclick="nextPage(3)" class="btn btn-primary">Next</button>
+    <button type="button"id="next2" class="btn btn-primary">Next</button>
     <br><br>
     <div class="progress-container">
       <div class="progress-bar" id="progressBarPage2"></div>
@@ -91,6 +93,7 @@
         <div class="mb-3">
           <label for="previousHousing" class="form-label">Before living in this flat, what sort of dwelling were you living in?</label>
           <select class="form-control" id="previousHousing" name="previousHousing" required>
+            <option value="">Select</option>
             <option value="flat">Flat</option>
             <option value="house">House</option>
             <option value="studentHousing">Student Housing</option>
@@ -141,7 +144,7 @@
           <input type="number" class="form-control" id="numReferences" name="numReferences" required>
         </div> -->
         <button type="button" onclick="prevPage(2)" class="btn btn-secondary">Previous</button>
-        <button type="button" onclick="nextPage(4)" class="btn btn-primary">Next</button>
+        <button type="button" id="next3" class="btn btn-primary">Next</button>
         <br><br>
         <div class="progress-container">
           <div class="progress-bar" id="progressBarPage3"></div>
@@ -161,7 +164,7 @@
         <div class='mb-3' id="ratingFormSection"></div>
         <!-- Insert a submit button or a button navigating to the next page, depending on your form structure -->
         <button type="button" onclick="prevPage(3)" class="btn btn-secondary">Previous</button>
-        <button type="button" onclick="nextPage(5)" class="btn btn-primary">Next</button>
+        <button type="button" id="next4" class="btn btn-primary">Next</button>
         <br><br>
         <div class="progress-container">
           <div class="progress-bar" id="progressBarPage4"></div>
@@ -245,7 +248,7 @@
     <!-- Navigation Buttons -->
     <button type="button" onclick="prevPage(4)" class="btn btn-secondary">Previous</button>
     <!-- Adjust navigation as necessary -->
-    <button type="button" onclick="nextPage(6)" class="btn btn-primary">Next</button> <!-- If this is not the last page -->
+    <button type="button" id="next5" class="btn btn-primary">Next</button> <!-- If this is not the last page -->
     <br><br>
     <div class="progress-container">
       <div class="progress-bar" id="progressBarPage5"></div>
@@ -273,6 +276,7 @@
     <div class="mb-3">
       <label for="preferredLanguage" class="form-label">Preferred Language:</label>
       <select class="form-control" id="preferredLanguage" name="preferredLanguage">
+        <option value="">Select</option>
         <option value="english">English</option>
         <option value="isixhosa">isiXhosa</option>
         <option value="afrikaans">Afrikaans</option>
@@ -288,7 +292,7 @@
   
     <!-- Navigation Buttons -->
     <button type="button" onclick="prevPage(5)" class="btn btn-secondary">Previous</button>
-        <button type="button" onclick="nextPage(7)" class="btn btn-primary">Next</button>
+        <button type="button" id="next6" class="btn btn-primary">Next</button>
         <br><br>
         <div class="progress-container">
           <div class="progress-bar" id="progressBarPage6"></div>
@@ -347,7 +351,7 @@
     </div>
   
     <button type="button" onclick="prevPage(6)" class="btn btn-secondary">Previous</button>
-        <button type="button" onclick="nextPage(8)" class="btn btn-primary">Next</button>
+        <button type="button" id="next7" class="btn btn-primary">Next</button>
         <br><br>
         <div class="progress-container">
           <div class="progress-bar" id="progressBarPage7"></div>
@@ -373,7 +377,7 @@
   
     <!-- Navigation Buttons -->
     <button type="button" onclick="prevPage(7)" class="btn btn-secondary">Previous</button>
-    <button type="submit" class="btn btn-primary">Submit</button> <!-- If this is the last page -->
+    <button type="submit" id="submit" class="btn btn-primary">Submit</button> <!-- If this is the last page -->
     <br><br>
     <div class="progress-container">
       <div class="progress-bar" id="progressBarPage8"></div>
@@ -397,7 +401,196 @@
     // Run the init function when the document is fully loaded
     window.onload = init;
 
+    function validatePage(pageNumber) {
+        console.log('validatePage called for page ', pageNumber);
+        // Use conditions to apply different validations based on the page number
+        if (pageNumber === 1) {
+          if (!validateTextInput('fullName') ||
+            !validateTextInput('address') ||
+            !validatePhone('contactNumber') ||
+            !validateTextInput('email')
+          ) {
+            return false;
+          } else {
+            return true;
+          }
+        } else if (pageNumber === 2) {
+          if (!validateTextInput('jobTitle') ||
+          !validateDropdown('incomeBracket') ||
+          !validateNumber('residents') ||
+          !validateDropdown('householdSetup')
+          ) {
+            return false;
+          } else {
+            return true;
+          }
+        } else if (pageNumber === 3) {
+          if (!validateTextInput('rentalHistory') ||
+          !validateDropdown('previousHousing') ||
+          !validateTextInput('previousArea') ||
+          !validateRadioInput('leaseUnderstanding') ||
+          !validateRadioInput('maintenanceResponsibility')
+          ) {
+            return false;
+          } else {
+            return true;
+          }
+        } else if (pageNumber === 4) {
+          if (!validateRadioInput('question1') ||
+          !validateRadioInput('question2') ||
+          !validateRadioInput('question3') ||
+          !validateRadioInput('question4') ||
+          !validateRadioInput('question5') ||
+          !validateRadioInput('question6') ||
+          !validateRadioInput('question7') ||
+          !validateRadioInput('question8') ||
+          !validateRadioInput('question9') ||
+          !validateRadioInput('question10') ||
+          !validateRadioInput('question11')
+          ) {
+            return false;
+          } else {
+            return true;
+          }
+        } else if (pageNumber === 5) {
+          if (!validateTextInput('buildQuality') ||
+          !validateTextInput('featuresIssues') ||
+          !validateNumber('amenityParking') ||
+          !validateNumber('amenityLaundry') ||
+          !validateNumber('amenityWiFi') ||
+          !validateNumber('amenityDSTV') ||
+          !validateTextInput('designFeedback') ||
+          !validateTextInput('waterQuality') ||
+          !validateTextInput('electricityExperience') ||
+          !validateTextInput('maintenanceIssues') ||
+          !validateTextInput('safetyFeedback')
+          ) {
+            return false;
+          } else {
+            return true;
+          }
+        } else if (pageNumber === 6) {
+          if (!validateTextInput('serviceExperience') ||
+          !validateTextInput('communicationChannel') ||
+          !validateDropdown('preferredLanguage') ||
+          !validateTextInput('responseTime')
+          ) {
+            return false;
+          } else {
+            return true;
+          }
+        } else if (pageNumber === 7) {
+          if (!validateTextInput('maintenanceProcess') ||
+          !validateTextInput('rentalApplicationProcess') ||
+          !validateTextInput('rentalPaymentProcess') ||
+          !validateTextInput('movingProcess') ||
+          !validateTextInput('reputation') ||
+          !validateTextInput('landlordComfort') ||
+          !validateTextInput('landlordPrivacy') ||
+          !validateTextInput('landlordResponse')
+          ) {
+            return false;
+          } else {
+            return true;
+          }
+        } else if (pageNumber === 8) {
+          if (!validateTextInput('areaChoice') ||
+          !validateTextInput('supportSuggestions')
+          ) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+
+    }
+
+
+    function validateTextInput(id) {
+        const input = document.getElementById(id);
+        if(input.value.trim() === "") {
+            input.style.borderColor = 'red';
+            return false;
+        } else {
+            input.style.borderColor = '';
+            return true;
+        }
+    }
+
+    function validatePhone(id) {
+        const phoneInput = document.getElementById(id);
+        if (phoneInput.value.length !== 10 || phoneInput.value[0] !== '0') {
+          phoneInput.style.borderColor = 'red';
+          return false;
+        } else {
+          phoneInput.style.borderColor = '';
+          return true;
+        }
+    }
+  
+
+    function validateRadioInput(name) {
+        const radios = document.getElementsByName(name);
+        for(let i = 0; i < radios.length; i++) {
+            if(radios[i].checked) {
+                return true;
+            }
+        }
+        alert('Please answer all questions before proceeding.');
+        return false;
+    }
+
+    function validateDropdown(dropdownId) {
+        // Get the dropdown element by its ID
+        const dropdown = document.getElementById(dropdownId);
+
+        // Get the selected index and value
+        const selectedIndex = dropdown.selectedIndex;
+        console.log('selected index:', selectedIndex);
+        const selectedValue = dropdown.options[selectedIndex].value;
+        console.log('selectedvalue:', selectedValue);
+
+        // Validate the selected value
+        if (selectedValue === "" || selectedValue === "placeholderValue" /* or any invalid value */) {
+            // Optionally: Provide a visual cue for invalid selection
+            dropdown.style.borderColor = 'red';
+            console.log('validate dropdown false');
+            return false; // Invalid selection
+        } else {
+            dropdown.style.borderColor = ''; // Reset border color
+            console.log('validate dropdown true');
+            return true; // Valid selection
+        }
+    }
+    let min = 0;
+    let max = 100;
+    function validateNumber(inputId, min, max) {
+        // Get the input element by its ID
+        const numberInput = document.getElementById(inputId);
+
+        // Get the input value and parse it as a number
+        const numberValue = parseInt(numberInput.value, 10);
+
+        // Validate the number value
+        if (isNaN(numberValue) || numberValue < min || numberValue > max) {
+            // Optionally: Provide a visual cue for invalid input
+            numberInput.style.borderColor = 'red';
+            return false; // Invalid number input
+        } else {
+            numberInput.style.borderColor = ''; // Reset border color
+            return true; // Valid number input
+        }
+    }
+
+
+
     function nextPage(pageNumber) {
+      var phoneInput = document.getElementById('contactNumber');
+      phoneInput.style.borderColor = '';
+      // if (pageNumber === 1 && (phoneInput.value.length !== 10)) {
+      //   phoneInput.style.borderColor = 'red';
+      //   return;
+      // }
         // Hide all pages
         document.querySelectorAll('.form-page').forEach(function(page) {
         page.style.display = 'none';
@@ -517,9 +710,51 @@
       return false; // Prevent the form from submitting the traditional way
     } 
 
+    const phoneInput = document.getElementById('contactNumber');
+    // const phoneError = document.getElementById('phone-error');
+
+    phoneInput.addEventListener('input', function () {
+      // Remove any non-numeric characters
+      this.value = this.value.replace(/\D/g, '');
+
+      // Ensure the first digit is '0'
+      if (this.value.length > 0 && this.value[0] !== '0') {
+        this.value = '0' + this.value;
+      }
+
+      // Limit to 10 digits
+      if (this.value.length > 10) {
+        this.value = this.value.substring(0, 10);
+      }
+
+      // Clear the error message when the user corrects the input
+      // phoneError.textContent = '';
+    });
+
+
+    // For each next button, dynamically create event listeners
+    for(let i = 1; i < 8; i++) {
+      console.log('next' + i);
+        document.getElementById('next' + i).addEventListener('click', function(e) {
+            if(validatePage(i)) {
+              console.log('Page validated', i);
+                nextPage(i + 1);  // Proceed to the next page if validation passes
+            } else {
+              console.log('Page not validated');
+                e.preventDefault(); // Prevent moving to the next page
+                // Display error or warning message if validation fails
+            }
+        });
+    }
 
     document.getElementById('tenant-information-form').addEventListener('submit', function(e){
         e.preventDefault();
+        if(validatePage(8)) {
+              console.log('Page validated', 8);
+            } else {
+              console.log('Page not validated');
+                return;
+            }
 
         const formData = new FormData(this);
         const formObject = {};
@@ -553,14 +788,21 @@
             body: JSON.stringify(formObject)
         })
         .then(response => {
+          console.log('Raw Response:', response);
+          console.log('Response Body:', response.body);
           if(response.ok) {
-            return response.json();
+            const contentType = response.headers.get("content-type");
+            if(contentType && contentType.indexOf("application/json") !== -1) {
+              return response.json();
+            } else {
+              return response.text().then(text=> Promise.reject(text));
+            }
           }
           throw new Error('Network response was not ok');
         })
         .then(data => {
           console.log('Success:', data);
-          window.location.href = 'tenant_confirmation.html';
+          window.location.href = '/success_tenant_information';
         })
         .catch((error) => console.error('Error:', error));
     });
@@ -570,58 +812,3 @@
 </script>
 </body>
 </html>
-
-
-
-<!-- Object
-address: "3 De Smit Street"
-amenityDSTV: "4"
-amenityLaundry: "3"
-amenityParking: "2"
-amenityWiFi: "1"
-areaChoice: "Area choice text"
-buildQuality: "Build quality text"
-communicationChannel: "Bad comms"
-contactNumber: "0784130968"
-designFeedback: "Very nice layout"
-electricityExperience: "Bad electricity"
-email: "dyl.w@hotmail.com"
-featuresIssues: "Features text"
-fullName: "Dylan Walls"
-householdSetup: "single"
-incomeBracket: "R2000-R5000"
-jobTitle: "Employed"
-landlordComfort: "Landlord property text"
-landlordPrivacy: "Landlord privacy text"
-landlordResponse: "Landlord response text"
-leaseUnderstanding: "yes"
-maintenanceIssues: "Good maintenance"
-maintenanceMoreInfo: "More information box."
-maintenanceProcess: "Maintenance process text"
-maintenanceResponsibility: "no"
-moreInfo: ""
-movingProcess: "Moving process text"
-preferredLanguage: "isixhosa"
-previousArea: "Cape Town"
-previousHousing: "studentHousing"
-question1: "1"
-question2: "2"
-question3: "3"
-question4: "4"
-question5: "5"
-question6: "4"
-question7: "3"
-question8: "2"
-question9: "1"
-question10: "2"
-question11: "3"
-rentalApplicationProcess: "Rental application process text"
-rentalHistory: "I had a bad rental experience."
-rentalPaymentProcess: "Rental payment process text"
-reputation: "Bitprop's service text"
-residents: "1"
-responseTime: "Good response time"
-safetyFeedback: "Bad safety"
-serviceExperience: "Good Bitprop experience"
-supportSuggestions: "Support improvement text"
-waterQuality: "Good water" -->
