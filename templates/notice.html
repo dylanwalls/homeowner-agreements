@@ -49,7 +49,7 @@
         <input type="text" id="account_type" name="account_type" class="form-control text-input" required>
         </div>
         <div class="mb-3 section-container">
-        <label for="notice_date" class="form-label section-heading">Notice Date:</label>
+        <label for="notice_date" class="form-label section-heading">Notice Date (The date you are leaving the flat):</label>
        <br> <small class="form-text text-muted">Please note that your lease runs to month-end. You cannot end the lease in the middle of the month.</small>
        <br><br> <small class="form-text text-muted">If the notice date is less than 30 days away from today's date, you will not have provided a sufficient notice period, which will impact your deposit refund.</small>
         <input type="date" id="notice_date" name="notice_date" class="form-control text-input" required>
@@ -72,43 +72,58 @@
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const checkbox = document.getElementById('acknowledge')
-        const submitButton = document.getElementById('submit-button');
+      const checkbox = document.getElementById('acknowledge');
+      const submitBtn = document.getElementById('submitBtn');
+      const form = document.querySelector('form');
+      const inputs = form.querySelectorAll('input[required]');
 
-        checkbox.addEventListener('change', function () {
-            submitBtn.disabled = !checkbox.checked;
+      function updateSubmitState() {
+        let allFilled = true;
+        inputs.forEach(input => {
+          if (!input.value.trim()) allFilled = false;
         });
-    });
 
-    const phoneInput = document.getElementById('phone');
-    const phoneError = document.getElementById('phone-error');
-
-    phoneInput.addEventListener('input', function () {
-      // Remove any non-numeric characters
-      this.value = this.value.replace(/\D/g, '');
-
-      // Ensure the first digit is '0'
-      if (this.value.length > 0 && this.value[0] !== '0') {
-        this.value = '0' + this.value;
+        submitBtn.disabled = !checkbox.checked || !allFilled;
       }
 
-      // Limit to 10 digits
-      if (this.value.length > 10) {
-        this.value = this.value.substring(0, 10);
-      }
+      // Initial state
+      updateSubmitState();
 
-      // Clear the error message when the user corrects the input
-      phoneError.textContent = '';
+      // Update state on input and checkbox change
+      form.addEventListener('input', updateSubmitState);
+      checkbox.addEventListener('change', updateSubmitState);
+
+      const phoneInput = document.getElementById('phone');
+      const phoneError = document.getElementById('phone-error');
+
+      phoneInput.addEventListener('input', function () {
+        // Remove any non-numeric characters
+        this.value = this.value.replace(/\D/g, '');
+
+        // Ensure the first digit is '0'
+        if (this.value.length > 0 && this.value[0] !== '0') {
+          this.value = '0' + this.value;
+        }
+
+        // Limit to 10 digits
+        if (this.value.length > 10) {
+          this.value = this.value.substring(0, 10);
+        }
+
+        // Clear the error message when the user corrects the input
+        phoneError.textContent = '';
+      });
+
+      // Add form submission event listener
+      form.addEventListener('submit', function (e) {
+        if (phoneInput.value.length !== 10) {
+          e.preventDefault(); // Prevent form submission
+          phoneInput.style.borderColor = 'red'; // Highlight the field in red
+          phoneError.textContent = 'Invalid phone number'; // Display error message
+        }
+      });
     });
 
-    // Add form submission event listener
-    document.querySelector('form').addEventListener('submit', function (e) {
-      if (phoneInput.value.length !== 10) {
-        e.preventDefault(); // Prevent form submission
-        phoneInput.style.borderColor = 'red'; // Highlight the field in red
-        phoneError.textContent = 'Invalid phone number'; // Display error message
-      }
-    });
   </script>
   </body>
   </html>
