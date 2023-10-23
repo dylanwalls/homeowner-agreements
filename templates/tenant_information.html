@@ -87,10 +87,6 @@
     <!-- Page 3: Previous Housing & References -->
     <div class="form-page" id="page3" style="display:none;">
         <div class="mb-3">
-            <label for="rentalHistory" class="form-label">Rental History: Have you rented a property before? If yes, please provide details of your most recent rental experience.</label>
-            <textarea class="form-control" id="rentalHistory" name="rentalHistory" rows="3" placeholder="For example, I stayed in a share-house and I enjoyed it because my room received a lot of light throughout the day." required></textarea>
-          </div>
-        <div class="mb-3">
           <label for="previousHousing" class="form-label">Before living in this flat, what sort of dwelling were you living in?</label>
           <select class="form-control" id="previousHousing" name="previousHousing" required>
             <option value="">Select</option>
@@ -105,6 +101,10 @@
             <label for="previousArea" class="form-label">Where did you live before moving here?</label>
             <small class="form-text text-muted">Provide area/suburb/city/country etc.</small>
             <input type="text" class="form-control" id="previousArea" name="previousArea" required>
+        </div>
+        <div class="mb-3">
+          <label for="rentalHistory" class="form-label">Rental History: Have you rented a property before? If yes, please provide details of your most recent rental experience.</label>
+          <textarea class="form-control" id="rentalHistory" name="rentalHistory" rows="3" placeholder="For example, I stayed in a share-house and I enjoyed it because my room received a lot of light throughout the day." required></textarea>
         </div>
         <br>
         <div class="mb-3">
@@ -178,7 +178,7 @@
   
     <!-- Build Quality Section -->
     <div class="mb-3">
-      <label for="buildQuality" class="form-label">Build Quality: E.g. Describe the quality of materials, such as the paint, cupboards etc.</label>
+      <label for="buildQuality" class="form-label">Build Quality: E.g. Describe what you think of the quality of materials inside and outside the flats, such as the paint, cupboards etc.</label>
       <textarea class="form-control" id="buildQuality" name="buildQuality" rows="3" placeholder=""></textarea>
     </div>
   
@@ -223,26 +223,26 @@
   
     <!-- Water Quality Section -->
     <div class="mb-3">
-      <label for="waterQuality" class="form-label">Water Quality:</label>
-      <textarea class="form-control" id="waterQuality" name="waterQuality" rows="3" placeholder="Describe the water quality, pressure, temperature, etc."></textarea>
+      <label for="waterQuality" class="form-label">Water Quality: Describe the water quality, pressure, temperature, etc.</label>
+      <textarea class="form-control" id="waterQuality" name="waterQuality" rows="3"></textarea>
     </div>
   
     <!-- Electricity Section -->
     <div class="mb-3">
-      <label for="electricityExperience" class="form-label">Electricity Experience:</label>
-      <textarea class="form-control" id="electricityExperience" name="electricityExperience" rows="3" placeholder="Describe your experience with the electrical supply."></textarea>
+      <label for="electricityExperience" class="form-label">Electricity Experience: Describe your experience with the electrical supply.</label>
+      <textarea class="form-control" id="electricityExperience" name="electricityExperience" rows="3"></textarea>
     </div>
   
     <!-- Maintenance Section -->
     <div class="mb-3">
-        <label for="maintenanceIssues" class="form-label">Maintenance Issues:</label>
-        <textarea class="form-control" id="maintenanceIssues" name="maintenanceIssues" rows="3" placeholder="Describe any ongoing maintenance issues you've experienced."></textarea>
+        <label for="maintenanceIssues" class="form-label">Maintenance Issues: Describe any ongoing maintenance issues you've experienced.</label>
+        <textarea class="form-control" id="maintenanceIssues" name="maintenanceIssues" rows="3"></textarea>
       </div>
 
     <!-- Safety Section -->
     <div class="mb-3">
-      <label for="safetyFeedback" class="form-label">Safety Feedback:</label>
-      <textarea class="form-control" id="safetyFeedback" name="safetyFeedback" rows="3" placeholder="How safe do you find the flats? Provide comments, e.g. about gate and window functionality."></textarea>
+      <label for="safetyFeedback" class="form-label">Safety Feedback: How safe do you find the flats? Provide comments, e.g. about gate and window functionality.</label>
+      <textarea class="form-control" id="safetyFeedback" name="safetyFeedback" rows="3"></textarea>
     </div>
   
     <!-- Navigation Buttons -->
@@ -262,8 +262,8 @@
   
     <!-- Experience of Bitprop Service -->
     <div class="mb-3">
-      <label for="serviceExperience" class="form-label">Experience of Bitprop Service:</label>
-      <textarea class="form-control" id="serviceExperience" name="serviceExperience" rows="3" placeholder="Share your thoughts on Bitprop's assistance and how we respond to and resolve issues."></textarea>
+      <label for="serviceExperience" class="form-label">Experience of Bitprop Service: Share your thoughts on Bitprop's assistance and how we respond to and resolve issues.</label>
+      <textarea class="form-control" id="serviceExperience" name="serviceExperience" rows="3"></textarea>
     </div>
   
     <!-- Communication - Channels -->
@@ -286,8 +286,8 @@
   
     <!-- Response Time -->
     <div class="mb-3">
-      <label for="responseTime" class="form-label">Response Time Feedback:</label>
-      <textarea class="form-control" id="responseTime" name="responseTime" rows="3" placeholder="How long does it take for Bitprop to respond to your messages?"></textarea>
+      <label for="responseTime" class="form-label">Response Time Feedback: How long does it take for Bitprop to respond to your messages?</label>
+      <textarea class="form-control" id="responseTime" name="responseTime" rows="3"></textarea>
     </div>
   
     <!-- Navigation Buttons -->
@@ -306,48 +306,48 @@
   
     <!-- Maintenance Process -->
     <div class="mb-3">
-      <label for="maintenanceProcess" class="form-label">Maintenance Process Feedback:</label>
-      <textarea class="form-control" id="maintenanceProcess" name="maintenanceProcess" rows="3" placeholder="Describe how the maintenance process has affected you and how issues were resolved in your Bitprop flat."></textarea>
+      <label for="maintenanceProcess" class="form-label">Maintenance Process Feedback: Describe how the maintenance process has affected you and how issues were resolved in your Bitprop flat.</label>
+      <textarea class="form-control" id="maintenanceProcess" name="maintenanceProcess" rows="3"></textarea>
     </div>
   
     <!-- Rental Application Process -->
     <div class="mb-3">
-      <label for="rentalApplicationProcess" class="form-label">Rental Application Process Feedback:</label>
-      <textarea class="form-control" id="rentalApplicationProcess" name="rentalApplicationProcess" rows="3" placeholder="Share your experience with the rental application process for a Bitprop flat."></textarea>
+      <label for="rentalApplicationProcess" class="form-label">Rental Application Process Feedback: Share your experience with the rental application process for a Bitprop flat.</label>
+      <textarea class="form-control" id="rentalApplicationProcess" name="rentalApplicationProcess" rows="3"></textarea>
     </div>
   
     <!-- Rental Payment Process -->
     <div class="mb-3">
-      <label for="rentalPaymentProcess" class="form-label">Rental Payment Process Feedback:</label>
-      <textarea class="form-control" id="rentalPaymentProcess" name="rentalPaymentProcess" rows="3" placeholder="Describe your experience with the rental payment process through Bitprop's system."></textarea>
+      <label for="rentalPaymentProcess" class="form-label">Rental Payment Process Feedback: Describe your experience with the rental payment process through Bitprop's system.</label>
+      <textarea class="form-control" id="rentalPaymentProcess" name="rentalPaymentProcess" rows="3"></textarea>
     </div>
   
     <!-- Moving Process -->
     <div class="mb-3">
-      <label for="movingProcess" class="form-label">Moving Process Feedback:</label>
-      <textarea class="form-control" id="movingProcess" name="movingProcess" rows="3" placeholder="Share your thoughts on the moving process, including moving in and out of a Bitprop flat."></textarea>
+      <label for="movingProcess" class="form-label">Moving Process Feedback: Share your thoughts on the moving process, including moving in and out of a Bitprop flat.</label>
+      <textarea class="form-control" id="movingProcess" name="movingProcess" rows="3"></textarea>
     </div>
   
     <!-- Reputation -->
     <div class="mb-3">
-      <label for="reputation" class="form-label">Bitprop's Service Reputation:</label>
-      <textarea class="form-control" id="reputation" name="reputation" rows="3" placeholder="How would you describe Bitprop's service to friends and family? Share your opinion on how Bitprop operates."></textarea>
+      <label for="reputation" class="form-label">Bitprop's Service Reputation: How would you describe Bitprop's service to friends and family? Share your opinion on how Bitprop operates.</label>
+      <textarea class="form-control" id="reputation" name="reputation" rows="3"></textarea>
     </div>
   
     <!-- Experience of Landlord -->
     <div class="mb-3">
-      <label for="landlordComfort" class="form-label">Landlord Property Comfort:</label>
-      <textarea class="form-control" id="landlordComfort" name="landlordComfort" rows="3" placeholder="Describe your comfort level regarding your landlord's property, considering aspects like safety."></textarea>
+      <label for="landlordComfort" class="form-label">Landlord Property Comfort: Describe your comfort level regarding your landlord's property, considering aspects like safety.</label>
+      <textarea class="form-control" id="landlordComfort" name="landlordComfort" rows="3"></textarea>
     </div>
     
     <div class="mb-3">
-      <label for="landlordPrivacy" class="form-label">Landlord Privacy Respect:</label>
-      <textarea class="form-control" id="landlordPrivacy" name="landlordPrivacy" rows="3" placeholder="Tell us about how your landlord respects your privacy. Do they enter your space without prior notice?"></textarea>
+      <label for="landlordPrivacy" class="form-label">Landlord Privacy Respect: Tell us about how your landlord respects your privacy. Do they enter your space without prior notice?</label>
+      <textarea class="form-control" id="landlordPrivacy" name="landlordPrivacy" rows="3"></textarea>
     </div>
     
     <div class="mb-3">
-      <label for="landlordResponse" class="form-label">Landlord Response Feedback:</label>
-      <textarea class="form-control" id="landlordResponse" name="landlordResponse" rows="3" placeholder="Describe how your landlord communicates and responds to you as a tenant. Consider their tone and level of respect."></textarea>
+      <label for="landlordResponse" class="form-label">Landlord Response Feedback: Describe how your landlord communicates and responds to you as a tenant. Consider their tone and level of respect.</label>
+      <textarea class="form-control" id="landlordResponse" name="landlordResponse" rows="3"></textarea>
     </div>
   
     <button type="button" onclick="prevPage(6)" class="btn btn-secondary">Previous</button>
@@ -371,8 +371,8 @@
    
     <!-- Support Suggestions -->
     <div class="mb-3">
-      <label for="supportSuggestions" class="form-label">Support Improvement Suggestions:</label>
-      <textarea class="form-control" id="supportSuggestions" name="supportSuggestions" rows="3" placeholder="Provide suggestions on how Bitprop could improve its services. Consider all aspects of the service provided."></textarea>
+      <label for="supportSuggestions" class="form-label">Support Improvement Suggestions: Provide suggestions on how Bitprop could improve its services. Consider all aspects of the service provided.</label>
+      <textarea class="form-control" id="supportSuggestions" name="supportSuggestions" rows="3"></textarea>
     </div>
   
     <!-- Navigation Buttons -->
@@ -778,6 +778,8 @@
               }
             }
         });
+
+
         console.log(formObject);
         
         fetch('https://dashboard-function-app-1.azurewebsites.net/api/tenantInformation?code=oFuv1tfjDX013c_nn_mDQJm04JuxGh6A2K-TlfSaLLGAAzFu-E8pXA==', {
