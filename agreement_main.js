@@ -367,7 +367,7 @@ app.post('/submit_notice', (req, res) => {
     noticeData.notice_period_warning = 'Please note that you have provided fewer than 30 days notice. Your deposit refund may be affected by this';
   }
   else {
-    noticeData.notice_period_warning = '';
+    noticeData.notice_period_warning = '----------';
   }
 
   sendWhatsAppMessage(noticeData)
