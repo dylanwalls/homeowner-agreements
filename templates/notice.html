@@ -53,7 +53,44 @@
        <br> <small class="form-text text-muted">Please note that your lease runs to month-end. You cannot end the lease in the middle of the month.</small>
        <br><br> <small class="form-text text-muted">If the notice date is less than 30 days away from today's date, you will not have provided a sufficient notice period, which will impact your deposit refund.</small>
         <input type="date" id="notice_date" name="notice_date" class="form-control text-input" required>
+        <p id="noticeWarning" class="text-warning" style="display: none;">Notice period less than 30 days</p>
     </div>
+    <!-- Warning Modal -->
+    <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            You have selected a date that is less than 30 days away from today. Please note that you have not provided a sufficient notice period, which may impact your deposit refund.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelBtn">Cancel</button>
+            <button type="button" class="btn btn-primary" id="acknowledgeBtn" data-bs-dismiss="modal">Acknowledge</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Date Error Modal -->
+    <div class="modal fade" id="dateErrorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Date Error</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            You cannot select a date earlier than today.
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="dateErrorAcknowledgeBtn" class="btn btn-primary" data-bs-dismiss="modal">Okay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="mb-3 section-container">
         <div class="form-check">
@@ -76,6 +113,60 @@
       const submitBtn = document.getElementById('submitBtn');
       const form = document.querySelector('form');
       const inputs = form.querySelectorAll('input[required]');
+
+      const noticeDateInput = document.getElementById('notice_date');
+      const today = new Date();
+      const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      
+      noticeDateInput.addEventListener('change', function() {
+        this.classList.remove('highlighted');
+        const selectedDate = new Date(this.value);
+        const currentDate = new Date();
+        // Reset the time for both dates to ensure accurate comparison
+        selectedDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+
+
+        
+        const timeDifference = selectedDate.getTime() - currentDate.getTime();
+        const dayDifference = timeDifference / (1000 * 3600 * 24);
+
+        const noticeWarning = document.getElementById('noticeWarning');
+
+        if(dayDifference < 0) {
+            // Show the date error modal
+            const dateErrorModal = new bootstrap.Modal(document.getElementById('dateErrorModal'));
+            dateErrorModal.show();
+            // Clear the notice date input field after showing the error
+            noticeDateInput.value = '';
+        } else if(dayDifference < 30) {
+            noticeWarning.style.display = 'block';
+            // Show the warning modal
+            const warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
+            warningModal.show();
+        } else {
+            // Hide the warning message if date is 30 days or more
+            noticeWarning.style.display = 'none';
+        }
+      });
+
+      // Handle the acknowledge button click for the date error modal
+      dateErrorAcknowledgeBtn.addEventListener('click', function() {
+        noticeDateInput.value = '';  // Clear the notice date input field
+      });
+
+      // New event listeners for the "Acknowledge" and "Cancel" buttons
+      const cancelBtn = document.getElementById('cancelBtn');
+      const acknowledgeBtn = document.getElementById('acknowledgeBtn');
+
+      cancelBtn.addEventListener('click', function() {
+          noticeDateInput.value = '';  // Clear the notice date input field
+      });
+
+      acknowledgeBtn.addEventListener('click', function() {
+          noticeDateInput.classList.add('highlighted');  // Add the highlighted class to notice date input field
+      });
+
 
       function updateSubmitState() {
         let allFilled = true;
@@ -125,5 +216,9 @@
     });
 
   </script>
+  <!-- Include Bootstrap JS and Popper.js for modal functionality -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
   </body>
   </html>
