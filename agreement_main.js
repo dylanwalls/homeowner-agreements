@@ -364,7 +364,7 @@ app.post('/submit_notice', (req, res) => {
   const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
 
   if (differenceInDays < 30) {
-    noticeData.notice_period_warning = 'Please note that you have provided fewer than 30 days notice. Your deposit refund may be affected by this.';
+    noticeData.notice_period_warning = 'Please note that you have provided fewer than 30 days notice. Your deposit refund may be affected by this';
   }
   else {
     noticeData.notice_period_warning = '';
@@ -395,7 +395,8 @@ async function sendWhatsAppMessage(data) {
         params: [
           { key: '{{1}}', value: data.name } ,
           { key: '{{2}}', value: data.current_date },
-          { key: '{{3}}', value: data.notice_period_warning }
+          { key: '{{3}}', value: data.notice_date },
+          { key: '{{4}}', value: data.notice_period_warning}
        ],
         recipient_phone_number: '+27' + data.phone.slice(1),
         hsm_id: '141430' // Replace with your WhatsApp template HSM ID
