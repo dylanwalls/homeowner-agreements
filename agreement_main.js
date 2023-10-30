@@ -364,12 +364,10 @@ app.post('/submit_notice', (req, res) => {
   const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
 
   if (differenceInDays < 30) {
-    const notice_period_warning = 'Please note that you have provided fewer than 30 days notice. Your deposit refund may be affected by this.';
-    noticeData.append(notice_period_warning);
+    noticeData.notice_period_warning = 'Please note that you have provided fewer than 30 days notice. Your deposit refund may be affected by this.';
   }
   else {
-    const notice_period_warning = '';
-    noticeData.append(notice_period_warning);
+    noticeData.notice_period_warning = '';
   }
 
   sendWhatsAppMessage(noticeData)
