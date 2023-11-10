@@ -646,8 +646,8 @@ function generatePDF(templateFileName, jsonData) {
   return new Promise((resolve, reject) => {
     try {
       const credentials = PDFServicesSdk.Credentials.servicePrincipalCredentialsBuilder()
-        .withClientId("c8e4cd5828dd4a73bad876a83e3714a4")
-        .withClientSecret("p8e-4FwcEry59N3aTEvx52Io2z6C4krJCKEK")
+        .withClientId("c0bbd11b35784d42bf64287172e65db6")
+        .withClientSecret("p8e-E-IdPaBxJ0wqwBiTAp_aU8FPNSh4aXxA")
         .build();
 
       const executionContext = PDFServicesSdk.ExecutionContext.create(credentials);
