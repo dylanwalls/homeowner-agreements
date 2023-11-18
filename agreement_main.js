@@ -69,6 +69,7 @@ app.get('/', basicAuthMiddleware, (req, res) => {
       <li><a href="/cession_mpdf_bitprop">Cession Agreement MPDF and Bitprop</a></li>
       <li><a href="/loan_mpdf_bitprop">Loan Agreement MPDF and Bitprop</a></li>
       <li><a href="/tenant_information">Tenant Information Form</a></li>
+      <li><a href="/tenant_application">Tenant Application Form</a></li>
     </ul>
   `);
 });
@@ -500,7 +501,7 @@ async function sendWhatsAppMessage(data) {
 
 
 
-// Route for Inpsection Form
+// Route for Inspection Form
 app.get('/inspection', (req, res) => {
   res.sendFile(__dirname + '/templates/inspection.html');
 });
@@ -593,6 +594,11 @@ const currentDateTime = new Date().toLocaleString();
 // Route for Tenant Information Form
 app.get('/tenant_information', (req, res) => {
   res.sendFile(__dirname + '/templates/tenant_information.html');
+});
+
+// Route for Tenant Application Form
+app.get('/tenant_application', (req, res) => {
+  res.sendFile(__dirname + '/templates/tenant_application.html');
 });
 
 // Success page
@@ -696,6 +702,20 @@ app.post('/submit_tenant_information', (req, res) => {
 
 app.get('/success_tenant_information', (req, res) => {
   res.sendFile(path.join(__dirname, 'templates', 'tenant_confirmation.html'));
+});
+
+// Route to submit tenant-application form
+
+app.post('/submit_tenant_application', (req, res) => {
+  // Process form data here
+  // For example, insert the data into a database
+
+  // Sending a response back to the client
+  res.json({ status: 'success', message: 'Data received!' });
+});
+
+app.get('/success_tenant_application', (req, res) => {
+  res.sendFile(path.join(__dirname, 'templates', 'tenant_application_confirmation.html'));
 });
 
 
