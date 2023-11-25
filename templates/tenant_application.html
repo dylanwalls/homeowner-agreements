@@ -157,6 +157,9 @@
       </div>
 
   </form>
+  <div id="submitting-popup" class="popup" style="display:none;">
+    <p>Form is submitting...</p>
+</div>
 </div>
 
 
@@ -304,14 +307,14 @@
         // Update progress bar
         var progressBar = document.getElementById('progressBarPage' + pageNumber);
         if (progressBar) {
-          var width = (pageNumber / 8) * 100;
+          var width = (pageNumber / 3) * 100;
           progressBar.style.width = width + '%';
         }
 
         // Update page counter
         var pageCounter = document.getElementById('pageCounter' + pageNumber);
         if (pageCounter) {
-          pageCounter.innerText = 'Page ' + pageNumber + '/' + 8;
+          pageCounter.innerText = 'Page ' + pageNumber + '/' + 3;
         }
 
         window.scrollTo(0, 0);
@@ -385,7 +388,9 @@
     document.getElementById('tenant-application-form').addEventListener('submit', function(e){
         e.preventDefault();
         if(validatePage(3)) {
+              showPopup('submitting-popup');
               console.log('Page validated', 3);
+              // disableFormElements(true);
               // Get the current date and format it as a string
               const currentDate = new Date().toISOString();
 
@@ -447,6 +452,7 @@
           console.log('Success:', data);
           console.log('tenant address:', formObject['TenantAddress']);
           console.log('IdNumber:', formObject['IdNumber']);
+          hidePopup('submitting-popup');
           // After successful form submission, prepare for the new HTTP trigger
           const notificationData = {
             "recipients": [
@@ -517,6 +523,8 @@
           .then(response => response.json()) // Handle the response
           .then(notificationResponse => {
               console.log('Notification sent:', notificationResponse);
+              hidePopup('submitting-popup');
+              // enableFormElements();
               // Redirect after the first form submission
               window.location.href = '/success_tenant_application';
           })
@@ -525,8 +533,34 @@
         .catch((error) => console.error('Error:', error));
     });
 
+    function showPopup(popupId) {
+      const popup = document.getElementById(popupId);
+      popup.style.display = 'block';
+    }
 
-    // You might want to set up form submission logic, input validation, etc.
+    function hidePopup(popupId) {
+      const popup = document.getElementById(popupId);
+      popup.style.display = 'none';
+    }
+
+    function clearForm(formId) {
+      const form = document.getElementById(formId);
+      form.reset();
+    }
+
+    // function disableFormElements(disable) {
+    //     var elements = document.getElementById('tenant-application-form').elements;
+    //     for (var i = 0; i < elements.length; i++) {
+    //         elements[i].disabled = disable;
+    //     }
+    // }
+
+    // function enableFormElements() {
+    //     disableFormElements(false);
+    // }
+
+
+        // You might want to set up form submission logic, input validation, etc.
 </script>
 </body>
 </html>

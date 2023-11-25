@@ -16,22 +16,26 @@
     <!-- Page 1 -->
     <div class="form-page" id="page1">
         <div class="mb-3">
-          <label for="fullName" class="form-label">Full Name:</label>
+          <label for="FullName" class="form-label">Full Name:</label>
           <!-- <small class="form-text text-muted">Please provide your first name, middle name (if applicable), and last name.</small> -->
-          <input type="text" class="form-control" id="fullName" name="fullName" required>
+          <input type="text" class="form-control" id="FullName" name="FullName" required>
         </div>
         <div class="mb-3">
-          <label for="address" class="form-label">Tenant Address:</label>
+          <label for="TenantAddress" class="form-label">Tenant Address:</label>
           <small class="form-text text-muted">Please provide the flat letter and street address of the Bitprop flat you are living in.</small>
-          <input type="text" class="form-control" id="address" name="address" required>
+          <input type="text" class="form-control" id="TenantAddress" name="TenantAddress" required>
         </div>
         <div class="mb-3">
-          <label for="contactNumber" class="form-label">Primary Contact Number:</label>
-          <input type="text" class="form-control" id="contactNumber" name="contactNumber" pattern="0[0-9]{9}" placeholder="0123456789" required inputmode="numeric" minlength="10" maxlength="10">
+          <label for="PrimaryContactNumber" class="form-label">Primary Contact Number:</label>
+          <input type="text" class="form-control" id="PrimaryContactNumber" name="PrimaryContactNumber" pattern="0[0-9]{9}" placeholder="0123456789" required inputmode="numeric" minlength="10" maxlength="10">
         </div>
         <div class="mb-3">
-          <label for="email" class="form-label">Email Address:</label>
-          <input type="email" class="form-control" id="email" name="email" required>
+          <label for="IdNumber" class="form-label">ID Number:</label>
+          <input type="text" class="form-control" id="IdNumber" name="IdNumber" required inputmode="numeric">
+        </div>
+        <div class="mb-3">
+          <label for="EmailAddress" class="form-label">Email Address:</label>
+          <input type="EmailAddress" class="form-control" id="EmailAddress" name="EmailAddress" required>
         </div>
         <button type="button" id="next1" class="btn btn-primary">Next</button>
         <br><br>
@@ -44,12 +48,12 @@
     <!-- Page 2: Employment & Household Information -->
 <div class="form-page" id="page2" style="display:none;">
     <div class="mb-3">
-      <label for="jobTitle" class="form-label">Job Title / Employment Status:</label>
-      <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
+      <label for="JobTitleOrEmploymentStatus" class="form-label">Job Title / Employment Status:</label>
+      <input type="text" class="form-control" id="JobTitleOrEmploymentStatus" name="JobTitleOrEmploymentStatus" required>
     </div>
     <div class="mb-3">
-      <label for="incomeBracket" class="form-label">Income Bracket:</label>
-      <select class="form-control" id="incomeBracket" name="incomeBracket" required>
+      <label for="IncomeBracket" class="form-label">Income Bracket:</label>
+      <select class="form-control" id="IncomeBracket" name="IncomeBracket" required>
         <option value="">Select</option>
         <option value="R0-R2000">R0-R2000</option>
         <option value="R2000-R5000">R2000-R5000</option>
@@ -61,12 +65,12 @@
       </select>
     </div>
     <div class="mb-3">
-      <label for="residents" class="form-label">How many people live in the flat?</label>
-      <input type="number" class="form-control" id="residents" name="residents" required>
+      <label for="NumberOfPeopleInFlat" class="form-label">How many people live in the flat?</label>
+      <input type="number" class="form-control" id="NumberOfPeopleInFlat" name="NumberOfPeopleInFlat" required>
     </div>
     <div class="mb-3">
-      <label for="householdSetup" class="form-label">Distribution of tenants by setup:</label>
-      <select class="form-control" id="householdSetup" name="householdSetup" required>
+      <label for="DistributionOfTenantsBySetup" class="form-label">Distribution of tenants by setup:</label>
+      <select class="form-control" id="DistributionOfTenantsBySetup" name="DistributionOfTenantsBySetup" required>
         <option value="">Select</option>
         <option value="single">Single</option>
         <option value="couple">Couple</option>
@@ -87,8 +91,8 @@
     <!-- Page 3: Previous Housing & References -->
     <div class="form-page" id="page3" style="display:none;">
         <div class="mb-3">
-          <label for="previousHousing" class="form-label">Before living in this flat, what sort of dwelling were you living in?</label>
-          <select class="form-control" id="previousHousing" name="previousHousing" required>
+          <label for="PreviousDwellingType" class="form-label">Before living in this flat, what sort of dwelling were you living in?</label>
+          <select class="form-control" id="PreviousDwellingType" name="PreviousDwellingType" required>
             <option value="">Select</option>
             <option value="flat">Flat</option>
             <option value="house">House</option>
@@ -98,41 +102,41 @@
           </select>
         </div>
         <div class="mb-3">
-            <label for="previousArea" class="form-label">Where did you live before moving here?</label>
+            <label for="PreviousResidence" class="form-label">Where did you live before moving here?</label>
             <small class="form-text text-muted">Provide area/suburb/city/country etc.</small>
-            <input type="text" class="form-control" id="previousArea" name="previousArea" required>
+            <input type="text" class="form-control" id="PreviousResidence" name="PreviousResidence" required>
         </div>
         <div class="mb-3">
-          <label for="rentalHistory" class="form-label">Rental History: Have you rented a property before? If yes, please provide details of your most recent rental experience.</label>
-          <textarea class="form-control" id="rentalHistory" name="rentalHistory" rows="3" placeholder="For example, I stayed in a share-house and I enjoyed it because my room received a lot of light throughout the day." required></textarea>
+          <label for="RentalHistory" class="form-label">Rental History: Have you rented a property before? If yes, please provide details of your most recent rental experience.</label>
+          <textarea class="form-control" id="RentalHistory" name="RentalHistory" rows="3" placeholder="For example, I stayed in a share-house and I enjoyed it because my room received a lot of light throughout the day." required></textarea>
         </div>
         <br>
         <div class="mb-3">
-            <label for="previousArea" class="form-label" style="font-weight: bold;">Please select Yes or No for each of the following questions:</label>
+            <label for="PreviousArea" class="form-label" style="font-weight: bold;">Please select Yes or No for each of the following questions:</label>
         </div>
         <div class="mb-3">
-            <label for="leaseUnderstanding" class="form-label">I have a clear understanding of the terms and conditions outlined in my lease agreement.</label><br>
-            <input type="radio" id="leaseUnderstandingYes" name="leaseUnderstanding" value="yes" onclick="toggleTextBox(false)" required>
+            <label for="UnderstandsTermsAndConditions" class="form-label">I have a clear understanding of the terms and conditions outlined in my lease agreement.</label><br>
+            <input type="radio" id="leaseUnderstandingYes" name="UnderstandsTermsAndConditions" value="yes" onclick="toggleTextBox(false)" required>
             <label for="leaseUnderstandingYes">Yes</label><br>
-            <input type="radio" id="leaseUnderstandingNo" name="leaseUnderstanding" value="no" onclick="toggleTextBox(true)" required>
+            <input type="radio" id="leaseUnderstandingNo" name="UnderstandsTermsAndConditions" value="no" onclick="toggleTextBox(true)" required>
             <label for="leaseUnderstandingNo">No</label>
         </div>
         <div id="textBoxDiv" style="display:none; margin-top:10px; margin-bottom:10px;">
-            <label for="moreInfo">Please provide more information:</label><br>
-            <textarea id="moreInfo" name="moreInfo" rows="4" cols="50"></textarea>
+            <label for="UnderstandingMoreInfo">Please provide more information:</label><br>
+            <textarea id="UnderstandingMoreInfo" name="UnderstandingMoreInfo" rows="4" cols="50"></textarea>
         </div>
         <div class="mb-3">
-            <label class="form-label" for="maintenanceResponsibility">Are you aware of your responsibilities for general maintenance and upkeep of the Bitprop flat?</label><br>
-            <input type="radio" id="maintenanceResponsibilityYes" name="maintenanceResponsibility" value="yes" onclick="toggleMaintenanceTextBox(false)" required>
-            <label for="maintenanceResponsibilityYes">Yes</label><br>
-            <input type="radio" id="maintenanceResponsibilityNo" name="maintenanceResponsibility" value="no" onclick="toggleMaintenanceTextBox(true)" required>
-            <label for="maintenanceResponsibilityNo">No</label>
+            <label class="form-label" for="AwareOfResponsibilities">Are you aware of your responsibilities for general maintenance and upkeep of the Bitprop flat?</label><br>
+            <input type="radio" id="MaintenanceResponsibilityYes" name="AwareOfResponsibilities" value="yes" onclick="toggleMaintenanceTextBox(false)" required>
+            <label for="MaintenanceResponsibilityYes">Yes</label><br>
+            <input type="radio" id="MaintenanceResponsibilityNo" name="AwareOfResponsibilities" value="no" onclick="toggleMaintenanceTextBox(true)" required>
+            <label for="MaintenanceResponsibilityNo">No</label>
         </div>
         <div id="maintenanceTextBoxDiv" style="display:none; margin-top:10px; margin-bottom:10px;">
             <label for="maintenanceMoreInfo">Please provide more information:</label><br>
             <textarea id="maintenanceMoreInfo" name="maintenanceMoreInfo" rows="4" cols="50"></textarea>
         </div>
-        
+        <input type="hidden" id="currentDate" name="date" value="">
         
         <!-- <div class="mb-3">
           <label for="references" class="form-label">Can you provide references?</label>
@@ -178,14 +182,14 @@
   
     <!-- Build Quality Section -->
     <div class="mb-3">
-      <label for="buildQuality" class="form-label">Build Quality: E.g. Describe what you think of the quality of materials inside and outside the flats, such as the paint, cupboards etc.</label>
-      <textarea class="form-control" id="buildQuality" name="buildQuality" rows="3" placeholder=""></textarea>
+      <label for="BuildQuality" class="form-label">Build Quality: E.g. Describe what you think of the quality of materials inside and outside the flats, such as the paint, cupboards etc.</label>
+      <textarea class="form-control" id="BuildQuality" name="BuildQuality" rows="3" placeholder=""></textarea>
     </div>
   
     <!-- Features Section -->
     <div class="mb-3">
-      <label for="featuresIssues" class="form-label">Features: E.g. Describe any issues with fixtures, like loose door handles.</label>
-      <textarea class="form-control" id="featuresIssues" name="featuresIssues" rows="3" placeholder=""></textarea>
+      <label for="Features" class="form-label">Features: E.g. Describe any issues with fixtures, like loose door handles.</label>
+      <textarea class="form-control" id="Features" name="Features" rows="3" placeholder=""></textarea>
     </div>
   
     <!-- Amenities Ranking Section -->
@@ -194,55 +198,55 @@
         <small class="form-text text-muted">Rank the following amenities (4=Most Important, 1=Least Important).</small>
         
         <div class="mb-1">
-          <label for="amenityParking" class="form-label d-inline-block w-50">Parking space:</label>
-          <input type="number" class="form-control d-inline-block w-25" id="amenityParking" name="amenityParking">
+          <label for="ParkingSpaceRating" class="form-label d-inline-block w-50">Parking space:</label>
+          <input type="number" class="form-control d-inline-block w-25" id="ParkingSpaceRating" name="ParkingSpaceRating">
         </div>
       
         <div class="mb-1">
-          <label for="amenityLaundry" class="form-label d-inline-block w-50">Laundry service:</label>
-          <input type="number" class="form-control d-inline-block w-25" id="amenityLaundry" name="amenityLaundry">
+          <label for="LaundryRating" class="form-label d-inline-block w-50">Laundry service:</label>
+          <input type="number" class="form-control d-inline-block w-25" id="LaundryRating" name="LaundryRating">
         </div>
       
         <div class="mb-1">
-          <label for="amenityWiFi" class="form-label d-inline-block w-50">Wi-Fi connection point:</label>
-          <input type="number" class="form-control d-inline-block w-25" id="amenityWiFi" name="amenityWiFi">
+          <label for="WifiRating" class="form-label d-inline-block w-50">Wi-Fi connection point:</label>
+          <input type="number" class="form-control d-inline-block w-25" id="WifiRating" name="WifiRating">
         </div>
       
         <div class="mb-1">
-          <label for="amenityDSTV" class="form-label d-inline-block w-50">DSTV connection point:</label>
-          <input type="number" class="form-control d-inline-block w-25" id="amenityDSTV" name="amenityDSTV">
+          <label for="DstvRating" class="form-label d-inline-block w-50">DSTV connection point:</label>
+          <input type="number" class="form-control d-inline-block w-25" id="DstvRating" name="DstvRating">
         </div>
       </div>
       
   
     <!-- Design Feedback Section -->
     <div class="mb-3">
-      <label for="designFeedback" class="form-label">Please share your thoughts on our design, considering points such as the layout, size, interior style and exterior style.</label>
-      <textarea class="form-control" id="designFeedback" name="designFeedback" rows="3" placeholder="Share your thoughts on the layout and size of your flat."></textarea>
+      <label for="DesignFeedback" class="form-label">Please share your thoughts on our design, considering points such as the layout, size, interior style and exterior style.</label>
+      <textarea class="form-control" id="DesignFeedback" name="DesignFeedback" rows="3" placeholder="Share your thoughts on the layout and size of your flat."></textarea>
     </div>
   
     <!-- Water Quality Section -->
     <div class="mb-3">
-      <label for="waterQuality" class="form-label">Water Quality: Describe the water quality, pressure, temperature, etc.</label>
-      <textarea class="form-control" id="waterQuality" name="waterQuality" rows="3"></textarea>
+      <label for="WaterFeedback" class="form-label">Water Quality: Describe the water quality, pressure, temperature, etc.</label>
+      <textarea class="form-control" id="WaterFeedback" name="WaterFeedback" rows="3"></textarea>
     </div>
   
     <!-- Electricity Section -->
     <div class="mb-3">
-      <label for="electricityExperience" class="form-label">Electricity Experience: Describe your experience with the electrical supply.</label>
-      <textarea class="form-control" id="electricityExperience" name="electricityExperience" rows="3"></textarea>
+      <label for="ElectricityFeedback" class="form-label">Electricity Experience: Describe your experience with the electrical supply.</label>
+      <textarea class="form-control" id="ElectricityFeedback" name="ElectricityFeedback" rows="3"></textarea>
     </div>
   
     <!-- Maintenance Section -->
     <div class="mb-3">
-        <label for="maintenanceIssues" class="form-label">Maintenance Issues: Describe any ongoing maintenance issues you've experienced.</label>
-        <textarea class="form-control" id="maintenanceIssues" name="maintenanceIssues" rows="3"></textarea>
+        <label for="MaintenanceFeedback" class="form-label">Maintenance Issues: Describe any ongoing maintenance issues you've experienced.</label>
+        <textarea class="form-control" id="MaintenanceFeedback" name="MaintenanceFeedback" rows="3"></textarea>
       </div>
 
     <!-- Safety Section -->
     <div class="mb-3">
-      <label for="safetyFeedback" class="form-label">Safety Feedback: How safe do you find the flats? Provide comments, e.g. about gate and window functionality.</label>
-      <textarea class="form-control" id="safetyFeedback" name="safetyFeedback" rows="3"></textarea>
+      <label for="SafetyFeedback" class="form-label">Safety Feedback: How safe do you find the flats? Provide comments, e.g. about gate and window functionality.</label>
+      <textarea class="form-control" id="SafetyFeedback" name="SafetyFeedback" rows="3"></textarea>
     </div>
   
     <!-- Navigation Buttons -->
@@ -262,20 +266,20 @@
   
     <!-- Experience of Bitprop Service -->
     <div class="mb-3">
-      <label for="serviceExperience" class="form-label">Experience of Bitprop Service: Share your thoughts on Bitprop's assistance and how we respond to and resolve issues.</label>
-      <textarea class="form-control" id="serviceExperience" name="serviceExperience" rows="3"></textarea>
+      <label for="BitpropServiceFeedback" class="form-label">Experience of Bitprop Service: Share your thoughts on Bitprop's assistance and how we respond to and resolve issues.</label>
+      <textarea class="form-control" id="BitpropServiceFeedback" name="BitpropServiceFeedback" rows="3"></textarea>
     </div>
   
     <!-- Communication - Channels -->
     <div class="mb-3">
-      <label for="communicationChannel" class="form-label">Please share your thoughts on our communication in general, considering points such as the channel (WhatsApp), frequency (how often we reach out) and quality (how helpful the information we provide is).</label>
-      <textarea class="form-control" id="communicationChannel" name="communicationChannel" rows="3" placeholder=""></textarea>
+      <label for="CommunicationFeedback" class="form-label">Please share your thoughts on our communication in general, considering points such as the channel (WhatsApp), frequency (how often we reach out) and quality (how helpful the information we provide is).</label>
+      <textarea class="form-control" id="CommunicationFeedback" name="CommunicationFeedback" rows="3" placeholder=""></textarea>
     </div>
   
     <!-- Preferred Language -->
     <div class="mb-3">
-      <label for="preferredLanguage" class="form-label">Preferred Language:</label>
-      <select class="form-control" id="preferredLanguage" name="preferredLanguage">
+      <label for="PreferredLanguage" class="form-label">Preferred Language:</label>
+      <select class="form-control" id="PreferredLanguage" name="PreferredLanguage">
         <option value="">Select</option>
         <option value="english">English</option>
         <option value="isixhosa">isiXhosa</option>
@@ -286,8 +290,8 @@
   
     <!-- Response Time -->
     <div class="mb-3">
-      <label for="responseTime" class="form-label">Response Time Feedback: How long does it take for Bitprop to respond to your messages?</label>
-      <textarea class="form-control" id="responseTime" name="responseTime" rows="3"></textarea>
+      <label for="ResponseTimeFeedback" class="form-label">Response Time Feedback: How long does it take for Bitprop to respond to your messages?</label>
+      <textarea class="form-control" id="ResponseTimeFeedback" name="ResponseTimeFeedback" rows="3"></textarea>
     </div>
   
     <!-- Navigation Buttons -->
@@ -306,48 +310,48 @@
   
     <!-- Maintenance Process -->
     <div class="mb-3">
-      <label for="maintenanceProcess" class="form-label">Maintenance Process Feedback: Describe how the maintenance process has affected you and how issues were resolved in your Bitprop flat.</label>
-      <textarea class="form-control" id="maintenanceProcess" name="maintenanceProcess" rows="3"></textarea>
+      <label for="MaintenanceProcessFeedback" class="form-label">Maintenance Process Feedback: Describe how the maintenance process has affected you and how issues were resolved in your Bitprop flat.</label>
+      <textarea class="form-control" id="MaintenanceProcessFeedback" name="MaintenanceProcessFeedback" rows="3"></textarea>
     </div>
   
     <!-- Rental Application Process -->
     <div class="mb-3">
-      <label for="rentalApplicationProcess" class="form-label">Rental Application Process Feedback: Share your experience with the rental application process for a Bitprop flat.</label>
-      <textarea class="form-control" id="rentalApplicationProcess" name="rentalApplicationProcess" rows="3"></textarea>
+      <label for="RentalApplicationProcessFeedback" class="form-label">Rental Application Process Feedback: Share your experience with the rental application process for a Bitprop flat.</label>
+      <textarea class="form-control" id="RentalApplicationProcessFeedback" name="RentalApplicationProcessFeedback" rows="3"></textarea>
     </div>
   
     <!-- Rental Payment Process -->
     <div class="mb-3">
-      <label for="rentalPaymentProcess" class="form-label">Rental Payment Process Feedback: Describe your experience with the rental payment process through Bitprop's system.</label>
-      <textarea class="form-control" id="rentalPaymentProcess" name="rentalPaymentProcess" rows="3"></textarea>
+      <label for="RentalPaymentProcessFeedback" class="form-label">Rental Payment Process Feedback: Describe your experience with the rental payment process through Bitprop's system.</label>
+      <textarea class="form-control" id="RentalPaymentProcessFeedback" name="RentalPaymentProcessFeedback" rows="3"></textarea>
     </div>
   
     <!-- Moving Process -->
     <div class="mb-3">
-      <label for="movingProcess" class="form-label">Moving Process Feedback: Share your thoughts on the moving process, including moving in and out of a Bitprop flat.</label>
-      <textarea class="form-control" id="movingProcess" name="movingProcess" rows="3"></textarea>
+      <label for="MovingProcessFeedback" class="form-label">Moving Process Feedback: Share your thoughts on the moving process, including moving in and out of a Bitprop flat.</label>
+      <textarea class="form-control" id="MovingProcessFeedback" name="MovingProcessFeedback" rows="3"></textarea>
     </div>
   
     <!-- Reputation -->
     <div class="mb-3">
-      <label for="reputation" class="form-label">Bitprop's Service Reputation: How would you describe Bitprop's service to friends and family? Share your opinion on how Bitprop operates.</label>
-      <textarea class="form-control" id="reputation" name="reputation" rows="3"></textarea>
+      <label for="BitpropOverallServiceFeedback" class="form-label">Bitprop's Service Reputation: How would you describe Bitprop's service to friends and family? Share your opinion on how Bitprop operates.</label>
+      <textarea class="form-control" id="BitpropOverallServiceFeedback" name="BitpropOverallServiceFeedback" rows="3"></textarea>
     </div>
   
     <!-- Experience of Landlord -->
     <div class="mb-3">
-      <label for="landlordComfort" class="form-label">Landlord Property Comfort: Describe your comfort level regarding your landlord's property, considering aspects like safety.</label>
-      <textarea class="form-control" id="landlordComfort" name="landlordComfort" rows="3"></textarea>
+      <label for="LandlordPropertyFeedback" class="form-label">Landlord Property Comfort: Describe your comfort level regarding your landlord's property, considering aspects like safety.</label>
+      <textarea class="form-control" id="LandlordPropertyFeedback" name="LandlordPropertyFeedback" rows="3"></textarea>
     </div>
     
     <div class="mb-3">
-      <label for="landlordPrivacy" class="form-label">Landlord Privacy Respect: Tell us about how your landlord respects your privacy. Do they enter your space without prior notice?</label>
-      <textarea class="form-control" id="landlordPrivacy" name="landlordPrivacy" rows="3"></textarea>
+      <label for="LandlordPrivacyFeedback" class="form-label">Landlord Privacy Respect: Tell us about how your landlord respects your privacy. Do they enter your space without prior notice?</label>
+      <textarea class="form-control" id="LandlordPrivacyFeedback" name="LandlordPrivacyFeedback" rows="3"></textarea>
     </div>
     
     <div class="mb-3">
-      <label for="landlordResponse" class="form-label">Landlord Response Feedback: Describe how your landlord communicates and responds to you as a tenant. Consider their tone and level of respect.</label>
-      <textarea class="form-control" id="landlordResponse" name="landlordResponse" rows="3"></textarea>
+      <label for="LandlordResponseFeedback" class="form-label">Landlord Response Feedback: Describe how your landlord communicates and responds to you as a tenant. Consider their tone and level of respect.</label>
+      <textarea class="form-control" id="LandlordResponseFeedback" name="LandlordResponseFeedback" rows="3"></textarea>
     </div>
   
     <button type="button" onclick="prevPage(6)" class="btn btn-secondary">Previous</button>
@@ -365,14 +369,14 @@
   
     <!-- Area Choice -->
     <div class="mb-3">
-      <label for="areaChoice" class="form-label">Please tell us more about how you chose to move to the suburb/area you currently live in? What benefits or concerns did you consider when making this decision?</label>
-      <textarea class="form-control" id="areaChoice" name="areaChoice" rows="3" placeholder=""></textarea>
+      <label for="AreaFeedback" class="form-label">Please tell us more about how you chose to move to the suburb/area you currently live in? What benefits or concerns did you consider when making this decision?</label>
+      <textarea class="form-control" id="AreaFeedback" name="AreaFeedback" rows="3" placeholder=""></textarea>
     </div>
    
     <!-- Support Suggestions -->
     <div class="mb-3">
-      <label for="supportSuggestions" class="form-label">Support Improvement Suggestions: Provide suggestions on how Bitprop could improve its services. Consider all aspects of the service provided.</label>
-      <textarea class="form-control" id="supportSuggestions" name="supportSuggestions" rows="3"></textarea>
+      <label for="ImprovementSuggestions" class="form-label">Support Improvement Suggestions: Provide suggestions on how Bitprop could improve its services. Consider all aspects of the service provided.</label>
+      <textarea class="form-control" id="ImprovementSuggestions" name="ImprovementSuggestions" rows="3"></textarea>
     </div>
   
     <!-- Navigation Buttons -->
@@ -405,97 +409,97 @@
         console.log('validatePage called for page ', pageNumber);
         // Use conditions to apply different validations based on the page number
         if (pageNumber === 1) {
-          if (!validateTextInput('fullName') ||
-            !validateTextInput('address') ||
-            !validatePhone('contactNumber') ||
-            !validateTextInput('email')
+          if (!validateTextInput('FullName') ||
+            !validateTextInput('TenantAddress') ||
+            !validatePhone('PrimaryContactNumber') ||
+            !validateTextInput('EmailAddress')
           ) {
             return false;
           } else {
             return true;
           }
         } else if (pageNumber === 2) {
-          if (!validateTextInput('jobTitle') ||
-          !validateDropdown('incomeBracket') ||
-          !validateNumber('residents') ||
-          !validateDropdown('householdSetup')
+          if (!validateTextInput('JobTitleOrEmploymentStatus') ||
+          !validateDropdown('IncomeBracket') ||
+          !validateNumber('NumberOfPeopleInFlat') ||
+          !validateDropdown('DistributionOfTenantsBySetup')
           ) {
             return false;
           } else {
             return true;
           }
         } else if (pageNumber === 3) {
-          if (!validateTextInput('rentalHistory') ||
-          !validateDropdown('previousHousing') ||
-          !validateTextInput('previousArea') ||
-          !validateRadioInput('leaseUnderstanding') ||
-          !validateRadioInput('maintenanceResponsibility')
+          if (!validateTextInput('RentalHistory') ||
+          !validateDropdown('PreviousDwellingType') ||
+          !validateTextInput('PreviousResidence') ||
+          !validateRadioInput('UnderstandsTermsAndConditions') ||
+          !validateRadioInput('AwareOfResponsibilities')
           ) {
             return false;
           } else {
             return true;
           }
         } else if (pageNumber === 4) {
-          if (!validateRadioInput('question1') ||
-          !validateRadioInput('question2') ||
-          !validateRadioInput('question3') ||
-          !validateRadioInput('question4') ||
-          !validateRadioInput('question5') ||
-          !validateRadioInput('question6') ||
-          !validateRadioInput('question7') ||
-          !validateRadioInput('question8') ||
-          !validateRadioInput('question9') ||
-          !validateRadioInput('question10') ||
-          !validateRadioInput('question11')
+          if (!validateRadioInput('Rating1') ||
+          !validateRadioInput('Rating2') ||
+          !validateRadioInput('Rating3') ||
+          !validateRadioInput('Rating4') ||
+          !validateRadioInput('Rating5') ||
+          !validateRadioInput('Rating6') ||
+          !validateRadioInput('Rating7') ||
+          !validateRadioInput('Rating8') ||
+          !validateRadioInput('Rating9') ||
+          !validateRadioInput('Rating10') ||
+          !validateRadioInput('Rating11')
           ) {
             return false;
           } else {
             return true;
           }
         } else if (pageNumber === 5) {
-          if (!validateTextInput('buildQuality') ||
-          !validateTextInput('featuresIssues') ||
-          !validateNumber('amenityParking') ||
-          !validateNumber('amenityLaundry') ||
-          !validateNumber('amenityWiFi') ||
-          !validateNumber('amenityDSTV') ||
-          !validateTextInput('designFeedback') ||
-          !validateTextInput('waterQuality') ||
-          !validateTextInput('electricityExperience') ||
-          !validateTextInput('maintenanceIssues') ||
-          !validateTextInput('safetyFeedback')
+          if (!validateTextInput('BuildQuality') ||
+          !validateTextInput('Features') ||
+          !validateNumber('ParkingSpaceRating') ||
+          !validateNumber('LaundryRating') ||
+          !validateNumber('WifiRating') ||
+          !validateNumber('DstvRating') ||
+          !validateTextInput('DesignFeedback') ||
+          !validateTextInput('WaterFeedback') ||
+          !validateTextInput('ElectricityFeedback') ||
+          !validateTextInput('MaintenanceFeedback') ||
+          !validateTextInput('SafetyFeedback')
           ) {
             return false;
           } else {
             return true;
           }
         } else if (pageNumber === 6) {
-          if (!validateTextInput('serviceExperience') ||
-          !validateTextInput('communicationChannel') ||
-          !validateDropdown('preferredLanguage') ||
-          !validateTextInput('responseTime')
+          if (!validateTextInput('BitpropServiceFeedback') ||
+          !validateTextInput('CommunicationFeedback') ||
+          !validateDropdown('PreferredLanguage') ||
+          !validateTextInput('ResponseTimeFeedback')
           ) {
             return false;
           } else {
             return true;
           }
         } else if (pageNumber === 7) {
-          if (!validateTextInput('maintenanceProcess') ||
-          !validateTextInput('rentalApplicationProcess') ||
-          !validateTextInput('rentalPaymentProcess') ||
-          !validateTextInput('movingProcess') ||
-          !validateTextInput('reputation') ||
-          !validateTextInput('landlordComfort') ||
-          !validateTextInput('landlordPrivacy') ||
-          !validateTextInput('landlordResponse')
+          if (!validateTextInput('MaintenanceProcessFeedback') ||
+          !validateTextInput('RentalApplicationProcessFeedback') ||
+          !validateTextInput('RentalPaymentProcessFeedback') ||
+          !validateTextInput('MovingProcessFeedback') ||
+          !validateTextInput('BitpropOverallServiceFeedback') ||
+          !validateTextInput('LandlordPropertyFeedback') ||
+          !validateTextInput('LandlordPrivacyFeedback') ||
+          !validateTextInput('LandlordResponseFeedback')
           ) {
             return false;
           } else {
             return true;
           }
         } else if (pageNumber === 8) {
-          if (!validateTextInput('areaChoice') ||
-          !validateTextInput('supportSuggestions')
+          if (!validateTextInput('AreaFeedback') ||
+          !validateTextInput('ImprovementSuggestions')
           ) {
             return false;
           } else {
@@ -585,7 +589,7 @@
 
 
     function nextPage(pageNumber) {
-      var phoneInput = document.getElementById('contactNumber');
+      var phoneInput = document.getElementById('PrimaryContactNumber');
       phoneInput.style.borderColor = '';
       // if (pageNumber === 1 && (phoneInput.value.length !== 10)) {
       //   phoneInput.style.borderColor = 'red';
@@ -660,7 +664,7 @@
     // Create and set the label
     const label = document.createElement('label');
     label.className = 'form-label';
-    label.htmlFor = `question${index + 1}`;
+    label.htmlFor = `Rating${index + 1}`;
     label.innerText = question;
     questionDiv.appendChild(label);
 
@@ -677,14 +681,14 @@
         const input = document.createElement('input');
         input.type = 'radio';
         input.className = 'form-check-input';
-        input.id = `question${index + 1}option${i}`;
-        input.name = `question${index + 1}`;
+        input.id = `Rating${index + 1}option${i}`;
+        input.name = `Rating${index + 1}`;
         input.value = i;
 
         // Create and set the label for the radio button
         const radioLabel = document.createElement('label');
         radioLabel.className = 'form-check-label';
-        radioLabel.htmlFor = `question${index + 1}option${i}`;
+        radioLabel.htmlFor = `Rating${index + 1}option${i}`;
         radioLabel.innerText = i;
 
         // Append the input and label to the radio div
@@ -710,7 +714,7 @@
       return false; // Prevent the form from submitting the traditional way
     } 
 
-    const phoneInput = document.getElementById('contactNumber');
+    const phoneInput = document.getElementById('PrimaryContactNumber');
     // const phoneError = document.getElementById('phone-error');
 
     phoneInput.addEventListener('input', function () {
@@ -751,6 +755,11 @@
         e.preventDefault();
         if(validatePage(8)) {
               console.log('Page validated', 8);
+              // Get the current date and format it as a string
+              const currentDate = new Date().toISOString();
+
+              // Set the value of the hidden input field
+              document.getElementById('currentDate').value = currentDate;
             } else {
               console.log('Page not validated');
                 return;
@@ -760,7 +769,7 @@
         const formObject = {};
         formData.forEach((value, key) => {
             // Optional: Convert numeric fields to integer
-            if (key === 'contactNumber') {
+            if (key === 'PrimaryContactNumber' || key === 'IdNumber') {
               if (typeof value !== 'string') {
                 console.warn('contactNumber should be a string. Converting to string.');
                 value = String(value);
